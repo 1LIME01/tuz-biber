@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-espresso: #241B14;
+  --color-cream: #EFE6D5;
+  --color-cream-soft: #DCD3C1;
+  --color-cream-light: #F6EFE8;
+  --color-copper: #B86F3C;
+  --color-copper-hover: #C67C46;
+  --color-coffee: #57402E;
+  --color-panel: rgba(36, 27, 20, 0.85);
+  --color-border: rgba(184, 111, 60, 0.22);
+  --shadow-soft: 0 32px 80px rgba(9, 6, 4, 0.38);
+  --space-unit: 8px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(184,111,60,0.16), transparent 24%),
+    linear-gradient(180deg, #241B14 0%, #1a120f 100%);
+  color: var(--color-cream);
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(255,255,255,0.02), transparent 20%, transparent 80%, rgba(255,255,255,0.02));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+textarea,
+a {
+  margin: 0;
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-copper);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(184, 111, 60, 0.35);
+  color: var(--color-cream);
+}
+
+.glass-panel {
+  background: rgba(36, 27, 20, 0.8);
+  border: 1px solid rgba(184, 111, 60, 0.2);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #b86f3c rgba(246, 239, 232, 0.08);
+  overscroll-behavior: contain;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scroll::-webkit-scrollbar-track {
+  background: rgba(246, 239, 232, 0.08);
+  border-radius: 999px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: #b86f3c;
+  border-radius: 999px;
+}
+
+.marquee-track {
+  animation: marquee 22s linear infinite;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+  animation-duration: 26s;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

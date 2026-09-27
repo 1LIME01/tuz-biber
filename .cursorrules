@@ -1,0 +1,24 @@
+# TUZ BİBER AGENT RULES & OPTIMIZATION
+
+## 1. PERFORMANCE & EFFICIENCY (Hız ve Token Tasarrufu)
+
+- Never output partial code or placeholders like `// TODO: implement later` or `// ... rest of the code`. Always produce complete, copy-paste ready TypeScript code.
+- Combine related small sub-components into cohesive section files when appropriate to minimize unnecessary file switching.
+- Utilize Next.js App Router (React Server Components) by default. Only use `'use client'` when state, effects, or browser event listeners are strictly required.
+
+## 2. INTELLIGENCE & ACCURACY (Doğruluk ve Mimari)
+
+- Strictly follow the brand design system:
+  - Espresso: `#241B14`
+  - Cream Default: `#EFE6D5`
+  - Cream Light: `#F6EFE8`
+  - Copper: `#B86F3C`
+  - Coffee: `#57402E`
+- Strict TypeScript: No `any` types allowed. Define explicit interfaces in `@/types/index.ts`.
+- Form Submission: Ensure forms (`WaitlistForm`, `ContactForm`) handle Loading, Error, and Success states with proper API route fetching (`/api/waitlist`, `/api/contact`).
+
+## 3. SEO & ACCESSIBILITY (Arama Motoru & Erişilebilirlik)
+
+- Always use semantic HTML tags (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`).
+- Ensure WCAG AA accessibility compliance (color contrast, explicit button types, proper aria-labels).
+- All images must include descriptive `alt` tags and proper layout dimensions (`aspect-ratio` or `width/height`).

@@ -138,27 +138,27 @@ export function ContactForm({ dictionary, lang }: { dictionary: BrandDictionary;
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-        <div className="grid gap-5 sm:grid-cols-2">
-          <label className="block text-sm text-[#241B14] sm:col-span-2">
+      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+        <div className="grid gap-6 sm:grid-cols-2">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14] sm:col-span-2">
             <FieldError name="name" />
             <span className="mb-2 block">{dictionary.contact.fields.name}</span>
             <div className="relative">
-              <input type="text" required value={formData.name} onChange={(event) => setFormData((current) => ({ ...current, name: event.target.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿĞğİıŞşÇçÖöÜü\s]/g, "").slice(0, 50) }))} className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-4 pr-12 text-[#241B14] outline-none transition focus:border-[#B86F3C] ${fieldErrors.name ? "border-red-500" : "border-[#241B14]/15"}`} />
+              <input type="text" required value={formData.name} onChange={(event) => setFormData((current) => ({ ...current, name: event.target.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿĞğİıŞşÇçÖöÜü\s]/g, "").slice(0, 50) }))} className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-5 pr-12 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.name ? "border-red-500" : "border-[#241B14]/15"}`} />
               {fieldErrors.name ? <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
             </div>
           </label>
 
-          <label className="block text-sm text-[#241B14]">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
             <FieldError name="email" />
             <span className="mb-2 block">{dictionary.contact.fields.email}</span>
             <div className="relative">
-              <input type="email" required value={formData.email} onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))} className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-4 pr-12 text-[#241B14] outline-none transition focus:border-[#B86F3C] ${fieldErrors.email ? "border-red-500" : "border-[#241B14]/15"}`} />
+              <input type="email" required value={formData.email} onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))} className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-5 pr-12 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.email ? "border-red-500" : "border-[#241B14]/15"}`} />
               {fieldErrors.email ? <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
             </div>
           </label>
 
-          <label className="block text-sm text-[#241B14]">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
             <FieldError name="phone" />
             <span className="mb-2 block">{dictionary.contact.fields.phone}</span>
             <div className="relative">
@@ -168,15 +168,15 @@ export function ContactForm({ dictionary, lang }: { dictionary: BrandDictionary;
                 onCountryCodeChange={(nextCode) => setCountryCode(nextCode)}
                 onChange={(value) => setFormData((current) => ({ ...current, phone: value }))}
                 className={`w-full ${fieldErrors.phone ? "border-red-500" : ""}`}
-                inputClassName="min-h-[48px] w-full rounded-full border-0 bg-transparent px-2 py-2 pr-10 text-[#241B14] outline-none"
-                selectClassName="min-h-[44px] rounded-full bg-[#EFE6D5] px-2 text-sm font-medium text-[#241B14] outline-none"
+                inputClassName="min-h-[48px] w-full rounded-full border-0 bg-transparent px-2 py-2 pr-10 text-sm text-[#241B14] outline-none"
+                selectClassName="min-h-[44px] rounded-full bg-[#EFE6D5] px-2 text-xs font-semibold text-[#241B14] outline-none"
               />
               {fieldErrors.phone ? <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
             </div>
           </label>
         </div>
 
-        <label className="block text-sm text-[#241B14]">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
           <span className="mb-2 block">{dictionary.contact.fields.message}</span>
           <FieldError name="message" />
           <textarea
@@ -185,21 +185,21 @@ export function ContactForm({ dictionary, lang }: { dictionary: BrandDictionary;
             maxLength={MAX_MESSAGE_LENGTH}
             value={formData.message}
             onChange={(event) => setFormData((current) => ({ ...current, message: event.target.value }))}
-            className={`w-full rounded-[1.5rem] border bg-[#F6EFE8] px-4 py-3 text-[#241B14] outline-none transition focus:border-[#B86F3C] ${fieldErrors.message ? "border-red-500" : "border-[#241B14]/15"}`}
+            className={`w-full rounded-2xl border bg-[#F6EFE8] px-5 py-4 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.message ? "border-red-500" : "border-[#241B14]/15"}`}
           />
           {fieldErrors.message ? <span className="float-right -mt-12 mr-3 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
-          <span className="mt-2 block text-right text-xs text-[#57402E]">{formData.message.length}/{MAX_MESSAGE_LENGTH}</span>
+          <span className="mt-2 block text-right text-xs font-normal text-[#57402E]">{formData.message.length}/{MAX_MESSAGE_LENGTH}</span>
         </label>
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
           <button
             type="submit"
             disabled={status === "loading"}
-            className="inline-flex min-h-[48px] flex-1 items-center justify-center rounded-full bg-[#B86F3C] px-6 py-3 text-sm font-medium text-[#F6EFE8] transition duration-200 hover:scale-[1.01] hover:bg-[#C67F46] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex min-h-[50px] flex-1 items-center justify-center rounded-full bg-[#B86F3C] px-7 py-3 text-xs font-semibold uppercase tracking-wider text-[#F6EFE8] transition-colors duration-200 hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
           >
             {status === "loading" ? "🛞 Gönderiliyor..." : dictionary.contact.submit}
           </button>
-          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#57402E]">
+          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#57402E]">
             <ShieldCheck className="h-4 w-4 text-[#B86F3C]" />
             Secure OTP
           </div>
@@ -207,14 +207,15 @@ export function ContactForm({ dictionary, lang }: { dictionary: BrandDictionary;
 
         {message && (
           <p
-            className={`text-sm transition-all duration-200 ${
-              status === "success" ? "text-[#241B14]" : status === "error" ? "text-[#57402E]" : "text-[#57402E]"
+            className={`text-sm font-medium transition-all duration-200 ${
+              status === "success" ? "text-[#241B14]" : "text-[#B86F3C]"
             }`}
           >
             {message}
           </p>
         )}
       </form>
+
 
       <OtpModal
         isOpen={otpModalOpen}

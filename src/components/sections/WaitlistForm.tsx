@@ -40,35 +40,35 @@ export function WaitlistForm({ dictionary, lang }: { dictionary: BrandDictionary
   }
 
   return (
-    <section id="waitlist" className="bg-[#F6EFE8] py-16 sm:py-20">
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 rounded-[2rem] border border-[#241B14]/10 bg-[#EFE6D5] p-8 lg:grid-cols-[0.8fr_1.2fr] lg:p-12">
+    <section id="waitlist" className="bg-[#F6EFE8] py-20 sm:py-28">
+      <div className="mx-auto max-w-[1240px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-10 rounded-2xl border border-[#241B14]/12 bg-[#EFE6D5] p-8 sm:p-14 shadow-[0_12px_32px_rgba(36,27,20,0.04)] lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.28em] text-[#B86F3C]">{dictionary.waitlist.eyebrow}</p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[#241B14] sm:text-4xl">{dictionary.waitlist.title}</h2>
-            <p className="mt-5 text-lg leading-8 text-[#57402E]">{dictionary.waitlist.description}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B86F3C]">{dictionary.waitlist.eyebrow}</p>
+            <h2 className="heading-section mt-4 text-[#241B14]">{dictionary.waitlist.title}</h2>
+            <p className="mt-5 text-base leading-relaxed text-[#57402E] sm:text-lg">{dictionary.waitlist.description}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             <div className="grid gap-5 sm:grid-cols-2">
-              <label className="text-sm text-[#241B14]">
+              <label className="text-xs font-semibold tracking-wider uppercase text-[#241B14]">
                 <span className="mb-2 block">{dictionary.waitlist.fields.firstName}</span>
                 <input
                   type="text"
                   value={firstName}
                   onChange={(event) => setFirstName(event.target.value)}
-                  className="min-h-[48px] w-full rounded-full border border-[#241B14]/15 bg-[#F6EFE8] px-4 text-[#241B14] outline-none ring-0 transition focus:border-[#B86F3C]"
+                  className="min-h-[48px] w-full rounded-full border border-[#241B14]/15 bg-[#F6EFE8] px-5 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C]"
                   placeholder={dictionary.waitlist.fields.firstName}
                 />
               </label>
-              <label className="text-sm text-[#241B14]">
+              <label className="text-xs font-semibold tracking-wider uppercase text-[#241B14]">
                 <span className="mb-2 block">{dictionary.waitlist.fields.email}</span>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="min-h-[48px] w-full rounded-full border border-[#241B14]/15 bg-[#F6EFE8] px-4 text-[#241B14] outline-none transition focus:border-[#B86F3C]"
+                  className="min-h-[48px] w-full rounded-full border border-[#241B14]/15 bg-[#F6EFE8] px-5 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C]"
                   placeholder={dictionary.waitlist.fields.email}
                 />
               </label>
@@ -77,13 +77,13 @@ export function WaitlistForm({ dictionary, lang }: { dictionary: BrandDictionary
             <button
               type="submit"
               disabled={status === "loading"}
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#B86F3C] px-6 py-3 text-sm font-medium text-[#F6EFE8] transition hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#B86F3C] px-8 py-3 text-sm font-semibold text-[#F6EFE8] transition-colors duration-200 hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             >
               {status === "loading" ? "..." : dictionary.waitlist.submit}
             </button>
 
             {message && (
-              <p className={`text-sm ${status === "success" ? "text-[#241B14]" : "text-[#57402E]"}`}>
+              <p className={`text-sm font-medium ${status === "success" ? "text-[#241B14]" : "text-[#B86F3C]"}`}>
                 {message}
               </p>
             )}
@@ -93,3 +93,4 @@ export function WaitlistForm({ dictionary, lang }: { dictionary: BrandDictionary
     </section>
   );
 }
+

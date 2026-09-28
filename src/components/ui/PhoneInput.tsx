@@ -45,12 +45,12 @@ export function PhoneInput({
 }: PhoneInputProps) {
   return (
     <div className={className}>
-      <div className="flex items-center gap-2 rounded-full border border-[#241B14]/10 bg-[#F6EFE8] px-2 text-[#241B14] transition focus-within:border-[#B86F3C]">
+      <div className="flex items-center gap-2 rounded-full border border-[#241B14]/15 bg-[#F6EFE8] px-3 text-[#241B14] transition-colors duration-200 focus-within:border-[#B86F3C]">
         <select
           aria-label="Country code"
           value={countryCode}
           onChange={(event) => onCountryCodeChange?.(event.target.value as CountryCode)}
-          className={selectClassName ?? "min-h-[44px] rounded-full bg-transparent px-2 py-2 text-sm font-medium text-[#241B14] outline-none"}
+          className={selectClassName ?? "min-h-[46px] rounded-full bg-transparent px-2 text-xs font-semibold text-[#241B14] outline-none cursor-pointer"}
           disabled={disabled}
         >
           <option value="+90">+90</option>
@@ -70,9 +70,10 @@ export function PhoneInput({
           required={required}
           inputMode="numeric"
           autoComplete="tel"
-          className={inputClassName ?? "min-h-[44px] flex-1 border-0 bg-transparent px-2 py-2 text-sm text-[#241B14] outline-none"}
+          className={inputClassName ?? "min-h-[46px] flex-1 border-0 bg-transparent px-2 text-sm text-[#241B14] placeholder:text-[#57402E]/50 outline-none"}
         />
       </div>
     </div>
   );
 }
+

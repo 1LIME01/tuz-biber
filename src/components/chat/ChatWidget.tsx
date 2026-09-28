@@ -184,9 +184,9 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
   };
 
   return (
-    <div className="fixed right-4 top-[5.5rem] z-[60] sm:right-8">
+    <div className="fixed right-4 bottom-5 z-[60] sm:right-8 sm:bottom-8 flex flex-col items-end">
       {!isOpen && !isMinimized && showHint && (
-        <div className="mb-2 rounded-full border border-[#B86F3C]/20 bg-[#241B14]/90 px-3 py-2 text-xs text-[#EFE6D5] shadow-[0_12px_24px_rgba(0,0,0,0.22)] backdrop-blur-md">
+        <div className="mb-2 rounded-full border border-[#B86F3C]/30 bg-[#241B14] px-4 py-2 text-xs font-medium text-[#EFE6D5] shadow-[0_12px_24px_rgba(0,0,0,0.25)]">
           {lang === "tr" ? "Hoş geldiniz! Nasıl yardımcı olabilirim?" : "Welcome! How can I help you?"}
         </div>
       )}
@@ -198,7 +198,7 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
             setIsOpen(true);
             setIsMinimized(false);
           }}
-          className="flex h-14 w-14 items-center justify-center rounded-full border border-[#B86F3C]/40 bg-[#241B14]/90 text-[#F6EFE8] shadow-[0_20px_40px_rgba(0,0,0,0.35)] backdrop-blur-md transition-transform duration-200 hover:scale-105"
+          className="flex h-13 w-13 items-center justify-center rounded-full border border-[#B86F3C]/40 bg-[#241B14] text-[#F6EFE8] shadow-[0_16px_32px_rgba(0,0,0,0.3)] transition-colors duration-200 hover:bg-[#B86F3C] cursor-pointer"
           aria-label="Open chat"
         >
           <MessageCircle className="h-6 w-6 text-[#B86F3C]" />
@@ -206,48 +206,48 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
       )}
 
       {isOpen && (
-        <div className="w-[min(360px,calc(100vw-2rem))] overflow-hidden rounded-[1.5rem] border border-[#B86F3C]/30 bg-[#241B14]/95 text-[#EFE6D5] shadow-[0_28px_70px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-all duration-300">
-          <div className="flex items-center justify-between border-b border-[#B86F3C]/20 px-4 py-3">
-            <div className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#B86F3C] text-[#F6EFE8]">
-                <MessageCircle className="h-4 w-4" />
+        <div className="w-[min(360px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-[#B86F3C]/30 bg-[#241B14] text-[#EFE6D5] shadow-[0_24px_60px_rgba(0,0,0,0.45)] transition-all duration-300">
+          <div className="flex items-center justify-between border-b border-[#B86F3C]/20 px-4 py-3.5">
+            <div className="flex items-center gap-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#B86F3C] font-serif text-sm font-bold text-[#F6EFE8]">
+                TB
               </span>
               <div>
-                <p className="text-sm font-medium">Tuz Biber Sofra Asistanı</p>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-[#DCD3C1]/70">Online</p>
+                <p className="font-serif text-sm font-bold text-[#EFE6D5]">Tuz Biber Sofra Asistanı</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#B86F3C]">Online</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <button type="button" onClick={() => setIsMinimized(true)} className="rounded-full border border-[#B86F3C]/20 p-1.5 text-[#EFE6D5] hover:border-[#B86F3C]" aria-label="Minimize chat">
+              <button type="button" onClick={() => setIsMinimized(true)} className="rounded-full border border-[#B86F3C]/20 p-1.5 text-[#EFE6D5] hover:border-[#B86F3C] transition-colors duration-200 cursor-pointer" aria-label="Minimize chat">
                 <Minus className="h-3.5 w-3.5" />
               </button>
-              <button type="button" onClick={() => setIsOpen(false)} className="rounded-full border border-[#B86F3C]/20 p-1.5 text-[#EFE6D5] hover:border-[#B86F3C]" aria-label="Close chat">
+              <button type="button" onClick={() => setIsOpen(false)} className="rounded-full border border-[#B86F3C]/20 p-1.5 text-[#EFE6D5] hover:border-[#B86F3C] transition-colors duration-200 cursor-pointer" aria-label="Close chat">
                 <X className="h-3.5 w-3.5" />
               </button>
             </div>
           </div>
 
-          <div ref={chatRef} className="chat-scroll max-h-[320px] space-y-3 overflow-y-auto px-4 py-3">
+          <div ref={chatRef} className="chat-scroll max-h-[320px] space-y-3 overflow-y-auto px-4 py-4">
             {messages.map((message) => (
               <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[84%] rounded-2xl px-3 py-2 text-sm leading-6 ${message.role === "user" ? "bg-[#B86F3C] text-[#F6EFE8]" : "bg-[#EFE6D5] text-[#241B14]"}`}>
+                <div className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-xs leading-relaxed ${message.role === "user" ? "bg-[#B86F3C] font-medium text-[#F6EFE8]" : "bg-[#EFE6D5] text-[#241B14]"}`}>
                   {renderReply(message.content)}
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="border-t border-[#B86F3C]/20 px-3 py-3">
-            <div className="mb-2 flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.16em] text-[#DCD3C1]/80">
+          <div className="border-t border-[#B86F3C]/20 px-4 py-3.5">
+            <div className="mb-3 flex flex-wrap gap-1.5 text-[10px] uppercase tracking-wider">
               {quickReplies.map((reply) => (
-                <button key={reply} type="button" onClick={() => setInput(reply)} className="rounded-full border border-[#B86F3C]/20 bg-[#EFE6D5]/5 px-2 py-1 transition hover:border-[#B86F3C] hover:text-[#EFE6D5]">
+                <button key={reply} type="button" onClick={() => setInput(reply)} className="rounded-full border border-[#B86F3C]/25 bg-[#F6EFE8]/5 px-2.5 py-1 text-[#EFE6D5]/80 transition-colors duration-200 hover:border-[#B86F3C] hover:text-[#EFE6D5] cursor-pointer">
                   {reply}
                 </button>
               ))}
             </div>
             <form onSubmit={handleSend} className="flex gap-2">
-              <input value={input} onChange={(event) => setInput(event.target.value)} className="min-h-[44px] flex-1 rounded-full border border-[#B86F3C]/20 bg-[#F6EFE8]/5 px-3 text-sm text-[#EFE6D5] placeholder:text-[#DCD3C1]/60 outline-none transition focus:border-[#B86F3C]" placeholder={lang === "tr" ? "Sorunuz nedir?" : "What would you like to know?"} aria-label="Ask the chat assistant" />
-              <button type="submit" disabled={!input.trim()} className="flex h-11 w-11 items-center justify-center rounded-full bg-[#B86F3C] text-[#F6EFE8] transition hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-50" aria-label="Send message">
+              <input value={input} onChange={(event) => setInput(event.target.value)} className="min-h-[42px] flex-1 rounded-full border border-[#B86F3C]/25 bg-[#F6EFE8]/5 px-4 text-xs text-[#EFE6D5] placeholder:text-[#EFE6D5]/50 outline-none transition-colors duration-200 focus:border-[#B86F3C]" placeholder={lang === "tr" ? "Sorunuz nedir?" : "What would you like to know?"} aria-label="Ask the chat assistant" />
+              <button type="submit" disabled={!input.trim()} className="flex h-10 w-10 items-center justify-center rounded-full bg-[#B86F3C] text-[#F6EFE8] transition-colors duration-200 hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer" aria-label="Send message">
                 <SendHorizonal className="h-4 w-4" />
               </button>
             </form>
@@ -256,10 +256,12 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
       )}
 
       {isMinimized && !isOpen && (
-        <button type="button" onClick={() => { setIsMinimized(false); setIsOpen(true); }} className="flex h-14 w-14 items-center justify-center rounded-full border border-[#B86F3C]/30 bg-[#241B14]/90 text-[#F6EFE8] shadow-[0_20px_40px_rgba(0,0,0,0.35)] backdrop-blur-md transition-transform duration-200 hover:scale-105" aria-label="Reopen chat">
+        <button type="button" onClick={() => { setIsMinimized(false); setIsOpen(true); }} className="flex h-13 w-13 items-center justify-center rounded-full border border-[#B86F3C]/40 bg-[#241B14] text-[#F6EFE8] shadow-[0_16px_32px_rgba(0,0,0,0.3)] transition-colors duration-200 hover:bg-[#B86F3C] cursor-pointer" aria-label="Reopen chat">
           <MessageCircle className="h-5 w-5 text-[#B86F3C]" />
         </button>
       )}
     </div>
   );
 }
+
+

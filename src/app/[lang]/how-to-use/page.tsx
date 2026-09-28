@@ -14,24 +14,24 @@ export default async function HowToUsePage({ params }: { params: Promise<{ lang:
   const dictionary = getDictionary(locale);
 
   return (
-    <main className="py-16 sm:py-20">
+    <main className="bg-[#EFE6D5] py-20 sm:py-28">
       <Container className="max-w-4xl">
-        <p className="text-xs font-medium uppercase tracking-[0.28em] text-[#B86F3C]">{dictionary.howToUsePage.eyebrow}</p>
-        <Heading as="h1" className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-[#241B14] sm:text-5xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B86F3C]">{dictionary.howToUsePage.eyebrow}</p>
+        <Heading as="h1" className="heading-hero mt-4 text-[#241B14]">
           {dictionary.howToUsePage.title}
         </Heading>
-        <p className="mt-6 text-xl leading-8 text-[#57402E]">{dictionary.howToUsePage.intro}</p>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
+        <p className="mt-6 font-serif text-xl font-medium leading-relaxed text-[#57402E] sm:text-2xl">{dictionary.howToUsePage.intro}</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
           {dictionary.howToUse.steps.map((step, index) => (
-            <Link key={step.title} href={`/${locale}/${["meals", "sweets", "drinks", "cakes"][index]}`} className="group rounded-[1.5rem] border border-[#241B14]/10 bg-[#EFE6D5] p-4 transition hover:-translate-y-1 hover:border-[#B86F3C]/50">
-              <div className="flex h-40 items-end rounded-[1.25rem] bg-[radial-gradient(circle_at_top,_rgba(184,111,60,0.7),_rgba(36,27,20,0.95)_68%)] p-4 text-[#F6EFE8]">
-                <span className="text-xs font-medium uppercase tracking-[0.24em]">{step.title}</span>
+            <Link key={step.title} href={`/${locale}/${["meals", "sweets", "drinks", "cakes"][index]}`} className="group rounded-xl border border-[#241B14]/12 bg-[#F6EFE8] p-6 shadow-[0_8px_24px_rgba(36,27,20,0.03)] transition-colors duration-200 hover:border-[#B86F3C]">
+              <div className="flex h-36 items-end rounded-lg bg-[linear-gradient(135deg,_#57402E_0%,_#241B14_100%)] p-5 text-[#EFE6D5]">
+                <span className="font-serif text-base font-bold uppercase tracking-wider text-[#B86F3C]">{step.title}</span>
               </div>
-              <p className="mt-4 px-2 pb-2 text-base leading-7 text-[#241B14]">{step.description}</p>
+              <p className="mt-5 text-sm leading-relaxed text-[#241B14]">{step.description}</p>
             </Link>
           ))}
         </div>
-        <div className="mt-8 space-y-5 text-lg leading-8 text-[#241B14]">
+        <div className="mt-10 space-y-6 text-base leading-relaxed text-[#241B14] sm:text-lg">
           {dictionary.howToUsePage.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
@@ -39,4 +39,4 @@ export default async function HowToUsePage({ params }: { params: Promise<{ lang:
       </Container>
     </main>
   );
-}
+}

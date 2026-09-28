@@ -23,11 +23,12 @@ export function CursorGlow() {
   }, []);
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-20 hidden mix-blend-screen md:block">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-20 hidden md:block">
       <div
-        className="absolute h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(184,111,60,0.22)_0%,rgba(184,111,60,0.1)_25%,transparent_70%)] blur-3xl transition-transform duration-150 ease-out"
-        style={{ transform: `translate(${position.x - 144}px, ${position.y - 144}px)` }}
+        className="absolute h-96 w-96 rounded-full bg-[radial-gradient(circle,rgba(184,111,60,0.12)_0%,rgba(184,111,60,0.03)_35%,transparent_70%)] blur-3xl transition-transform duration-150 ease-out"
+        style={{ transform: `translate(${position.x - 192}px, ${position.y - 192}px)` }}
       />
     </div>
   );
 }
+

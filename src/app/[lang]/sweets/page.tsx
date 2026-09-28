@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-import { Heading } from "@/components/ui/Heading";
+import { Coffee, Star, Sunrise, Utensils } from "lucide-react";
+import { ProductCategoryPage } from "@/components/sections/ProductCategoryPage";
 import { getSupportedLocales } from "@/utils/i18n";
 import type { Locale } from "@/types";
 
@@ -11,19 +10,52 @@ export function generateStaticParams() {
 export default async function SweetsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const locale = getSupportedLocales().includes(lang as Locale) ? (lang as Locale) : "en";
-
-  const title = locale === "tr" ? "Tatlılar" : "Sweets";
+  const tr = locale === "tr";
 
   return (
-    <main className="py-16 sm:py-20">
-      <Container className="max-w-3xl">
-        <p className="text-xs font-medium uppercase tracking-[0.28em] text-[#B86F3C]">{locale === "tr" ? "Yumuşak son dokunuş" : "Sweet final touch"}</p>
-        <Heading as="h1" className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-[#241B14] sm:text-5xl">{title}</Heading>
-        <div className="mt-8 rounded-[2rem] border border-[#241B14]/10 bg-[#EFE6D5] p-8 text-[#241B14]">
-          <p className="text-lg leading-8">{locale === "tr" ? "Sıcak, hafif tatlı ve baharatlı bir son nota için tasarlanmıştır; kahve, tatlı hamur işleri ve kahvaltı masalarında derinlik katar." : "Designed for warm, lightly sweet finishing notes that bring depth to coffee, pastries and slow morning tables."}</p>
-          <Link href={`/${locale}/products`} className="mt-6 inline-flex items-center rounded-full bg-[#B86F3C] px-5 py-3 text-sm font-medium text-[#F6EFE8]">{locale === "tr" ? "Ürünlere dön" : "Back to products"}</Link>
-        </div>
-      </Container>
-    </main>
+    <ProductCategoryPage
+      locale={locale}
+      eyebrow={tr ? "Yumuşak son dokunuş" : "Sweet final touch"}
+      title={tr ? "Tatlılar" : "Sweets"}
+      intro={
+        tr
+          ? "Sıcak, hafif tatlı ve baharatlı bir son nota için tasarlanmıştır; kahve, tatlı hamur işleri ve kahvaltı masalarında derinlik katar."
+          : "Designed for warm, lightly sweet finishing notes that bring depth to coffee, pastries and slow morning tables."
+      }
+      heroChips={
+        tr
+          ? ["Pişirme sonrası", "El yapımı", "Sofra ritüeli"]
+          : ["Post-cook", "Handcrafted", "Table ritual"]
+      }
+      spotlightSteps={
+        tr
+          ? [
+              { title: "Sabah ışığı", description: "Kahvaltı masasında peynir ve ekmek üzerinde yumuşak, kavrulmuş bir derinlik." },
+              { title: "Kahve anı", description: "Türk kahvesi veya filtre kahve eşliğinde aromatik, hafif baharatlı bir kapanış." },
+              { title: "Tatlı final", description: "Hamur işleri ve şerbetli tatlılarda piştikten sonra serpilerek katmanlı lezzet." },
+            ]
+          : [
+              { title: "Morning light", description: "A roasted depth over cheese and bread at a slow breakfast table." },
+              { title: "Coffee moment", description: "An aromatic, gently spiced close beside Turkish or filter coffee." },
+              { title: "Sweet finish", description: "Layered flavor when dusted after baking on pastries and syrupy sweets." },
+            ]
+      }
+      pairings={[
+        { icon: Coffee, label: tr ? "Türk Kahvesi" : "Turkish Coffee", note: tr ? "Üstüne serpin" : "Dust on top" },
+        { icon: Sunrise, label: tr ? "Sabah Kahvaltısı" : "Slow Breakfast", note: tr ? "Beyaz peynir ile" : "With white cheese" },
+        { icon: Star, label: tr ? "Tatlı Hamur İşleri" : "Sweet Pastries", note: tr ? "Piştikten sonra" : "After baking" },
+        { icon: Utensils, label: tr ? "Şerbetli Tatlılar" : "Syrupy Sweets", note: tr ? "Son dokunuş" : "Final touch" },
+      ]}
+      usageTip={
+        tr
+          ? "Servis tabağına yerleştirdikten sonra, birkaç tutam Tuz Biber serpin. Yemek masasındaki son ritüeliniz olsun."
+          : "After plating, dust a generous pinch of Tuz Biber. Let it be your final table ritual."
+      }
+      relatedCategories={[
+        { href: `/${locale}/cakes`, title: tr ? "Pastalar" : "Cakes" },
+        { href: `/${locale}/drinks`, title: tr ? "İçecekler" : "Drinks" },
+        { href: `/${locale}/meals`, title: tr ? "Yemekler" : "Meals" },
+      ]}
+    />
   );
 }

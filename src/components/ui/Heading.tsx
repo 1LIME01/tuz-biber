@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type HeadingProps = {
   as?: "h1" | "h2" | "h3" | "h4";
@@ -7,5 +7,6 @@ type HeadingProps = {
 };
 
 export function Heading({ as: Tag = "h2", children, className = "" }: HeadingProps) {
-  return <Tag className={`text-[#241B14] ${className}`}>{children}</Tag>;
+  return <Tag className={`font-serif ${className}`}>{children}</Tag>;
 }
+

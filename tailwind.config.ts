@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        sans: ["var(--font-geist-sans)", "Segoe UI", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+      },
       colors: {
         espresso: "#241B14",
         cream: {
@@ -25,4 +30,4 @@ const config: Config = {
   plugins: [],
 };
 
-export default config;
+export default config;

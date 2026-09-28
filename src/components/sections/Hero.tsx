@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Flame, Leaf, ShieldCheck, Sparkles, Star, Truck, Wind } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
@@ -10,92 +10,176 @@ type HeroProps = {
 };
 
 export function Hero({ lang, dictionary }: HeroProps) {
-  return (
-    <section className="relative overflow-hidden bg-[#241B14] pb-10 pt-8 sm:pb-12 lg:pt-10">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(184,111,60,0.32),_transparent_28%),radial-gradient(circle_at_bottom_left,_rgba(240,220,190,0.08),_transparent_30%)]" />
+  const trust = [
+    { icon: Leaf, label: lang === "tr" ? "%100 Doğal" : "100% Natural" },
+    { icon: Flame, label: lang === "tr" ? "Pişirme Sonrası" : "Post-Cook" },
+    { icon: Star, label: lang === "tr" ? "Aile Tarifi" : "Family Recipe" },
+    { icon: Truck, label: lang === "tr" ? "Hızlı Kargo" : "Fast Delivery" },
+    { icon: ShieldCheck, label: lang === "tr" ? "Sıfır Katkı" : "Zero Additives" },
+    { icon: Wind, label: lang === "tr" ? "El Yapımı" : "Handcrafted" },
+  ];
 
-      <Container className="relative grid items-center gap-10 pb-12 pt-12 lg:grid-cols-[1.08fr_0.92fr] lg:pb-18 lg:pt-16">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(184,111,60,0.3)] bg-[rgba(184,111,60,0.08)] px-3 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-[#DCD3C1]">
-            <span className="h-2 w-2 rounded-full bg-[#B86F3C]" />
+  const ritualLine =
+    lang === "tr" ? "Pişir. Tabağa al. Serp. Ye." : "Cook. Plate. Finish. Savour.";
+
+  return (
+    <section className="relative overflow-hidden bg-[#1C130E] py-16 text-[#EFE6D5] sm:py-24 lg:py-32">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_top_right,_rgba(184,111,60,0.18),_transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_bottom_left,_rgba(139,79,40,0.12),_transparent_60%)]" />
+        <div
+          className="hero-grain absolute inset-0 opacity-[0.04]"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(239,230,213,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(239,230,213,.6) 1px,transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+          aria-hidden
+        />
+      </div>
+
+      <Container className="relative grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        {/* ── Left: typography ─────────────────────────── */}
+        <div className="relative">
+          <div className="pointer-events-none absolute -left-4 top-8 h-16 w-16 rounded-full border border-[#B86F3C]/25 bg-[#B86F3C]/8 blur-[1px]" aria-hidden />
+          <div className="pointer-events-none absolute right-4 top-32 h-10 w-10 rounded-full border border-[#EFE6D5]/15 bg-[#EFE6D5]/5" aria-hidden />
+          <div className="pointer-events-none absolute -right-2 bottom-24 h-14 w-14 rounded-full border border-[#B86F3C]/20 bg-[#B86F3C]/5 blur-sm" aria-hidden />
+
+          <svg
+            className="pointer-events-none absolute -left-6 top-1/2 hidden w-24 text-[#B86F3C]/20 lg:block"
+            viewBox="0 0 120 80"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M0 40 Q 60 0 120 40"
+              stroke="currentColor"
+              strokeWidth="1"
+              strokeLinecap="round"
+            />
+          </svg>
+
+          <div className="relative inline-flex items-center gap-2.5 rounded-full border border-[#B86F3C]/40 bg-[#B86F3C]/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-[#B86F3C]">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#B86F3C]" />
             {lang === "tr" ? "TRAKYA → FLORIDA • SIFIR KATKI" : "THRACE → FLORIDA • ZERO ADDITIVES"}
           </div>
 
-          <Heading as="h1" className="mt-6 max-w-[640px] text-[3rem] font-black leading-[0.9] tracking-[-0.08em] text-[#EFE6D5] sm:text-[4.5rem] lg:text-[6.2rem]">
+          <Heading as="h1" className="heading-hero relative mt-6 text-[#EFE6D5]">
             {dictionary.hero.title}
           </Heading>
 
-          <p className="mt-5 max-w-xl text-base leading-8 text-[#DCD3C1] sm:text-lg">{dictionary.hero.subtitle}</p>
+          <p className="mt-3 font-serif text-lg font-medium tracking-tight text-[#B86F3C] sm:text-xl">
+            {lang === "tr" ? "Sofranın son imzası" : "The table’s final signature"}
+          </p>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Button href={`/${lang}/#waitlist`} className="min-h-[52px] rounded-full bg-[#B86F3C] px-6 py-3 text-sm font-semibold text-[#F6EFE8] shadow-[0_16px_32px_rgba(184,111,60,0.3)] hover:bg-[#C67C46]">
-              {dictionary.hero.ctaPrimary}
-            </Button>
-            <Button href={`/${lang}/how-to-use`} variant="secondary" className="min-h-[52px] rounded-full border border-[#EFE6D5]/50 bg-[#241B14] px-6 py-3 text-sm font-semibold text-[#EFE6D5] hover:border-[#B86F3C] hover:bg-[#B86F3C] hover:text-[#241B14]">
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-[#EFE6D5]/75 sm:text-lg">
+            {dictionary.hero.subtitle}
+          </p>
+
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a
+              href={`/${lang}/#waitlist`}
+              className="group relative inline-flex overflow-hidden rounded-full"
+            >
+              <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,#D4895A_0%,#B86F3C_45%,#7A3D18_100%)]" />
+              <span className="absolute inset-0 -translate-x-full rounded-full bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.22)_50%,transparent_65%)] transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="absolute inset-[1px] rounded-full border border-white/10" />
+              <span className="relative flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-[0.14em] text-[#F6EFE8]">
+                <Star className="h-3.5 w-3.5 fill-[#F6EFE8]/50" />
+                {dictionary.hero.ctaPrimary}
+              </span>
+            </a>
+
+            <Button
+              href={`/${lang}/how-to-use`}
+              variant="secondary"
+              className="min-h-[50px] border border-[#EFE6D5]/25 bg-transparent px-7 py-3 text-sm font-semibold tracking-wide text-[#EFE6D5] hover:bg-[#EFE6D5]/10"
+            >
               {dictionary.hero.ctaSecondary}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+            {[
+              { n: "5", label: lang === "tr" ? "Ana Malzeme" : "Core Ingredients" },
+              { n: "0", label: lang === "tr" ? "Katkı Maddesi" : "Additives" },
+              { n: "1", label: lang === "tr" ? "Aile Tarifi" : "Family Recipe" },
+            ].map(({ n, label }, i) => (
+              <div key={label} className="flex items-center gap-6">
+                {i > 0 ? (
+                  <span className="hidden h-8 w-px bg-[#EFE6D5]/15 sm:block" aria-hidden />
+                ) : null}
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-serif text-3xl font-bold text-[#B86F3C]">{n}</span>
+                  <span className="text-xs font-medium uppercase tracking-wider text-[#EFE6D5]/60">{label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* ── Right: editorial glass card ───────────────── */}
         <div className="relative flex justify-center lg:justify-end">
-          <div className="relative h-[460px] w-full max-w-[500px]">
-            <div className="absolute left-10 top-12 h-64 w-64 rounded-[2rem] border border-[rgba(184,111,60,0.2)] bg-[#EFE6D5]/10 backdrop-blur-sm" />
-            <div className="absolute left-20 top-24 h-64 w-64 rotate-6 rounded-[2rem] border border-[rgba(184,111,60,0.14)] bg-[#241B14]/90 shadow-[0_28px_60px_rgba(0,0,0,0.25)]" />
-            <div className="absolute left-0 top-0 flex h-[430px] w-[360px] flex-col justify-between rounded-[2.25rem] border border-[rgba(184,111,60,0.2)] bg-[linear-gradient(180deg,_rgba(49,33,26,0.94),_rgba(27,18,14,0.98))] p-6 shadow-[var(--shadow-soft)]">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-[#DCD3C1]/80">Tuz Biber</p>
-                  <p className="mt-3 text-3xl font-semibold tracking-[-0.06em] text-[#EFE6D5]">Finishing Blend</p>
-                </div>
-                <div className="rounded-full border border-[rgba(184,111,60,0.3)] bg-[#B86F3C]/10 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-[#DCD3C1]">
-                  {lang === "tr" ? "Küçük Parti" : "Small Batch"}
-                </div>
+          <div
+            className="pointer-events-none absolute inset-4 rounded-3xl border border-[#B86F3C]/15"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-8 rounded-3xl border border-[#EFE6D5]/8"
+            aria-hidden
+          />
+          <div className="absolute -inset-6 rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(184,111,60,0.15),transparent_70%)]" aria-hidden />
+
+          <div className="hero-float relative w-full max-w-[400px]">
+            <div className="overflow-hidden rounded-3xl border border-[#B86F3C]/35 bg-[#241B14]/80 p-8 shadow-[0_32px_80px_rgba(0,0,0,0.45)] backdrop-blur-md sm:p-10">
+              <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-[#B86F3C]">
+                Tuz Biber
+              </p>
+              <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#EFE6D5]/45">
+                {lang === "tr" ? "Bitiş baharatı" : "Finishing seasoning"}
+              </p>
+
+              <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-[#B86F3C]/50 to-transparent" />
+
+              <p className="font-serif text-[clamp(1.75rem,4vw,2.35rem)] font-semibold leading-[1.15] tracking-tight text-[#EFE6D5]">
+                {ritualLine}
+              </p>
+
+              <div className="mt-10 flex items-center gap-3">
+                <div className="h-px flex-1 bg-[#EFE6D5]/12" />
+                <span className="h-2 w-2 rounded-full bg-[#B86F3C] shadow-[0_0_12px_rgba(184,111,60,0.6)]" aria-hidden />
+                <div className="h-px flex-1 bg-[#EFE6D5]/12" />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-[1.5rem] bg-[#EFE6D5] p-5 text-[#241B14]">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-[#57402E]">Aroma</p>
-                  <div className="mt-4 space-y-3 text-sm">
-                    <div className="flex items-center justify-between"><span>Susam</span><span>Warm</span></div>
-                    <div className="flex items-center justify-between"><span>Kekik</span><span>Herbal</span></div>
-                    <div className="flex items-center justify-between"><span>Kimyon</span><span>Earthy</span></div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center rounded-[1.5rem] border border-[rgba(184,111,60,0.18)] bg-[radial-gradient(circle_at_top,_rgba(184,111,60,0.24),_rgba(22,17,14,0.8)_52%,_rgba(22,17,14,0.96))] p-5">
-                  <div className="flex h-28 w-28 items-center justify-center rounded-full border-[6px] border-[#B86F3C] bg-[radial-gradient(circle,_#EFE6D5_0%,_#F6EFE8_30%,_#B86F3C_100%)] text-4xl font-bold text-[#241B14]">5</div>
-                </div>
-              </div>
-
-              <div className="rounded-[1.5rem] border border-[rgba(184,111,60,0.18)] bg-[#F6EFE8]/5 p-4 text-sm text-[#EFE6D5]">
-                <div className="flex items-center justify-between">
-                  <span className="text-[#DCD3C1]">{lang === "tr" ? "Sofra anı" : "Table moment"}</span>
-                  <Sparkles className="h-4 w-4 text-[#B86F3C]" />
-                </div>
-                <p className="mt-3 text-2xl font-bold leading-tight tracking-[-0.04em] text-[#EFE6D5] sm:text-3xl">Pişir. Tabağa al. Serp. Ye.</p>
+              <div className="mt-6 flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.28em] text-[#EFE6D5]/40">
+                <span>{lang === "tr" ? "Küçük parti" : "Small batch"}</span>
+                <Sparkles className="h-3.5 w-3.5 text-[#B86F3C]/70" aria-hidden />
+                <span>{lang === "tr" ? "El yapımı" : "Handcrafted"}</span>
               </div>
             </div>
           </div>
         </div>
       </Container>
 
-      <div className="relative mx-auto max-w-[1200px] px-4 pb-4 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-center justify-center gap-3 rounded-[1.25rem] border border-[rgba(184,111,60,0.2)] bg-[rgba(252,248,244,0.03)] px-4 py-4 text-xs text-[#DCD3C1] backdrop-blur-sm sm:flex-nowrap sm:justify-between">
-          {[
-            "✓ %100 Doğal İçerik",
-            "✓ Piştikten Sonra Kullanım",
-            "✓ Özel Aile Tarifi",
-            "✓ Hızlı Kargo",
-          ].map((item) => (
-            <span key={item} className="inline-flex items-center gap-2 whitespace-nowrap">
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#B86F3C] text-[10px] text-[#F6EFE8]">✓</span>
-              {item}
-            </span>
-          ))}
+      <Container className="relative mt-14 sm:mt-20">
+        <div className="rounded-2xl border border-[#EFE6D5]/10 bg-[#EFE6D5]/4 px-6 py-5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {trust.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex items-center gap-2.5">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#B86F3C]/25 bg-[#B86F3C]/15">
+                  <Icon className="h-3.5 w-3.5 text-[#B86F3C]" />
+                </span>
+                <span className="text-[11px] font-semibold text-[#EFE6D5]/85">{label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-
+      </Container>
     </section>
   );
 }

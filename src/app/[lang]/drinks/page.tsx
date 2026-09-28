@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
-import { Heading } from "@/components/ui/Heading";
+import { Coffee, CupSoda, Leaf, Wine } from "lucide-react";
+import { ProductCategoryPage } from "@/components/sections/ProductCategoryPage";
 import { getSupportedLocales } from "@/utils/i18n";
 import type { Locale } from "@/types";
 
@@ -11,18 +10,52 @@ export function generateStaticParams() {
 export default async function DrinksPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   const locale = getSupportedLocales().includes(lang as Locale) ? (lang as Locale) : "en";
-  const title = locale === "tr" ? "İçecekler" : "Drinks";
+  const tr = locale === "tr";
 
   return (
-    <main className="py-16 sm:py-20">
-      <Container className="max-w-3xl">
-        <p className="text-xs font-medium uppercase tracking-[0.28em] text-[#B86F3C]">{locale === "tr" ? "Tatlı ve baharatlı eşlik" : "Pairing ritual"}</p>
-        <Heading as="h1" className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-[#241B14] sm:text-5xl">{title}</Heading>
-        <div className="mt-8 rounded-[2rem] border border-[#241B14]/10 bg-[#EFE6D5] p-8 text-[#241B14]">
-          <p className="text-lg leading-8">{locale === "tr" ? "Kahve, çay ve hafif içeceklerin üstüne serpilerek aroma ve doku katmanları oluşturur; her yudumda daha anlamlı bir sofra hissi verir." : "A finishing note for coffee, tea and gentle drinks — adding aroma, texture and a more memorable table moment in every sip."}</p>
-          <Link href={`/${locale}/products`} className="mt-6 inline-flex items-center rounded-full bg-[#B86F3C] px-5 py-3 text-sm font-medium text-[#F6EFE8]">{locale === "tr" ? "Ürünlere dön" : "Back to products"}</Link>
-        </div>
-      </Container>
-    </main>
+    <ProductCategoryPage
+      locale={locale}
+      eyebrow={tr ? "Tatlı ve baharatlı eşlik" : "Pairing ritual"}
+      title={tr ? "İçecekler" : "Drinks"}
+      intro={
+        tr
+          ? "Kahve, çay ve hafif içeceklerin üstüne serpilerek aroma ve doku katmanları oluşturur; her yudumda daha anlamlı bir sofra hissi verir."
+          : "A finishing note for coffee, tea and gentle drinks — adding aroma, texture and a more memorable table moment in every sip."
+      }
+      heroChips={
+        tr
+          ? ["Pişirme sonrası", "El yapımı", "Sofra ritüeli"]
+          : ["Post-cook", "Handcrafted", "Table ritual"]
+      }
+      spotlightSteps={
+        tr
+          ? [
+              { title: "Kahve", description: "Espresso veya Türk kahvesinde kavrulmuş susam ve hafif ısının yudumla buluşması." },
+              { title: "Çay", description: "Siyah veya bitki çayında temiz tuzluluk ve kekik notasının yumuşak kapanışı." },
+              { title: "Soğuk içecek", description: "Limonata ve hafif mocktail’lerde beklenmedik, sofistike bir doku katmanı." },
+            ]
+          : [
+              { title: "Coffee", description: "Roasted sesame and gentle heat meeting each sip of espresso or Turkish coffee." },
+              { title: "Tea", description: "Clean salinity and thyme on black or herbal tea for a soft close." },
+              { title: "Cold drinks", description: "An unexpected, sophisticated texture layer on lemonade and light mocktails." },
+            ]
+      }
+      pairings={[
+        { icon: Coffee, label: tr ? "Türk Kahvesi" : "Turkish Coffee", note: tr ? "Köpük üzerine ince serpi" : "Dust over the crema" },
+        { icon: Leaf, label: tr ? "Bitki Çayı" : "Herbal Tea", note: tr ? "Demlemeden sonra" : "After steeping" },
+        { icon: Wine, label: tr ? "Sıcak Çikolata" : "Hot Chocolate", note: tr ? "Kremalı final" : "Creamy finish" },
+        { icon: CupSoda, label: tr ? "Limonata" : "Lemonade", note: tr ? "Buzlu bardakta" : "Over ice" },
+      ]}
+      usageTip={
+        tr
+          ? "İçecek servis edildikten hemen sonra bir tutam serpin; aromalar yüzeyde kalır ve ilk yudumda hissedilir."
+          : "Dust immediately after serving so aromatics stay on the surface and greet the first sip."
+      }
+      relatedCategories={[
+        { href: `/${locale}/sweets`, title: tr ? "Tatlılar" : "Sweets" },
+        { href: `/${locale}/cakes`, title: tr ? "Pastalar" : "Cakes" },
+        { href: `/${locale}/meals`, title: tr ? "Yemekler" : "Meals" },
+      ]}
+    />
   );
 }

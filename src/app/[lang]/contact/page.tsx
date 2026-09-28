@@ -14,21 +14,21 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
   const dictionary = getDictionary(locale);
 
   return (
-    <main className="py-16 sm:py-20">
-      <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+    <main className="bg-[#EFE6D5] py-20 sm:py-28">
+      <Container className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.28em] text-[#B86F3C]">{dictionary.contact.eyebrow}</p>
-          <Heading as="h1" className="mt-4 text-4xl font-semibold tracking-[-0.06em] text-[#241B14] sm:text-5xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B86F3C]">{dictionary.contact.eyebrow}</p>
+          <Heading as="h1" className="heading-hero mt-4 text-[#241B14]">
             {dictionary.contact.title}
           </Heading>
-          <p className="mt-6 text-lg leading-8 text-[#57402E]">{dictionary.contact.description}</p>
-          <div className="mt-8 space-y-3 rounded-[1.5rem] border border-[#B86F3C]/20 bg-[#EFE6D5] p-5 text-sm leading-6 text-[#241B14]">
-            <p className="font-semibold text-[#B86F3C]">Sirius AI Tech</p>
+          <p className="mt-6 text-base leading-relaxed text-[#57402E] sm:text-lg">{dictionary.contact.description}</p>
+          <div className="mt-8 space-y-3 rounded-xl border border-[#B86F3C]/20 bg-[#F6EFE8] p-6 text-sm leading-relaxed text-[#241B14]">
+            <p className="font-serif font-bold text-[#B86F3C]">Sirius AI Tech</p>
             <p>Adres: Cumhuriyet Mahallesi, Esenyurt / İstanbul, Türkiye</p>
-            <p>E-posta: <a className="underline" href="mailto:miraczer05@gmail.com">miraczer05@gmail.com</a></p>
+            <p>E-posta: <a className="underline transition-colors duration-200 hover:text-[#B86F3C]" href="mailto:miraczer05@gmail.com">miraczer05@gmail.com</a></p>
             <p>{locale === "tr" ? "Telefon: İletişim formu üzerinden bize ulaşabilirsiniz." : "Phone: Please reach us through the contact form."}</p>
           </div>
-          <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-[#B86F3C]/20 bg-[#EFE6D5]">
+          <div className="mt-6 overflow-hidden rounded-xl border border-[#B86F3C]/20 bg-[#F6EFE8]">
             <iframe
               title="Sirius AI Tech location"
               src="https://www.openstreetmap.org/export/embed.html?bbox=28.634%2C41.015%2C28.735%2C41.075&layer=mapnik&marker=41.045%2C28.685"
@@ -38,15 +38,15 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
             <p className="p-3 text-xs text-[#57402E]">{locale === "tr" ? "Haritayı yakınlaştırmak ve taşımak için fare veya klavye kullanabilirsiniz." : "Use your mouse or keyboard to zoom and move around the map."}</p>
           </div>
         </div>
-        <div className="rounded-[2rem] border border-[#241B14]/10 bg-[#EFE6D5] p-6 sm:p-8">
+        <div className="rounded-2xl border border-[#241B14]/12 bg-[#F6EFE8] p-7 sm:p-10 shadow-[0_12px_32px_rgba(36,27,20,0.04)]">
           <ContactForm dictionary={dictionary} lang={locale} />
         </div>
       </Container>
-      <Container className="mt-12">
-        <div className="rounded-[2rem] border border-[#B86F3C]/20 bg-[#241B14] p-6 text-[#EFE6D5] sm:p-8">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#B86F3C]">{locale === "tr" ? "Neden bize ulaşmalısınız?" : "Why contact us?"}</p>
-          <h2 className="mt-3 text-2xl font-semibold">{locale === "tr" ? "Sofranız için birlikte daha iyi bir son dokunuş tasarlayalım." : "Let’s design a better final touch for your table."}</h2>
-          <div className="mt-6 overflow-hidden rounded-2xl border border-[#B86F3C]/15">
+      <Container className="mt-14">
+        <div className="rounded-2xl border border-[#B86F3C]/30 bg-[#241B14] p-8 text-[#EFE6D5] sm:p-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B86F3C]">{locale === "tr" ? "Neden bize ulaşmalısınız?" : "Why contact us?"}</p>
+          <h2 className="mt-3 font-serif text-2xl font-bold">{locale === "tr" ? "Sofranız için birlikte daha iyi bir son dokunuş tasarlayalım." : "Let’s design a better final touch for your table."}</h2>
+          <div className="mt-6 overflow-hidden rounded-xl border border-[#B86F3C]/20">
             <div className="marquee-track flex w-max items-center gap-3 p-3 hover:[animation-play-state:paused]">
               {[
                 "Table ritual", "Warm texture", "Thrace", "Ağzınız Tatlansın!",
@@ -54,7 +54,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
                 "Table ritual", "Warm texture", "Thrace", "Ağzınız Tatlansın!",
                 "Small batch", "Five ingredients", "Florida", "Keyfiniz Yerine Gelsin!",
               ].map((label, index) => (
-                <div key={`${label}-${index}`} className={`flex h-24 w-40 shrink-0 items-center justify-center rounded-2xl border px-4 text-center text-sm transition hover:border-[#B86F3C] hover:text-[#C67C46] ${label.includes("Tatlansın") || label.includes("Gelsin") ? "border-[#B86F3C]/40 bg-[#B86F3C]/10 font-semibold text-[#C67C46]" : "border-[#B86F3C]/20 bg-[#F6EFE8]/5 text-[#DCD3C1]"}`}>
+                <div key={`${label}-${index}`} className={`flex h-20 w-40 shrink-0 items-center justify-center rounded-xl border px-4 text-center text-xs font-semibold tracking-wider transition-colors duration-200 ${label.includes("Tatlansın") || label.includes("Gelsin") ? "border-[#B86F3C]/50 bg-[#B86F3C]/15 text-[#C67C46]" : "border-[#B86F3C]/20 bg-[#F6EFE8]/5 text-[#EFE6D5]/80"}`}>
                   {label}
                 </div>
               ))}
@@ -64,4 +64,4 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
       </Container>
     </main>
   );
-}
+}

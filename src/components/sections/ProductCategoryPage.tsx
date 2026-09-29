@@ -130,12 +130,18 @@ export function ProductCategoryPage({
 
         {/* CTAs */}
         <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
-          <Link href={`/${locale}/products`} className="group relative inline-flex overflow-hidden rounded-full">
-            <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,#D4895A_0%,#B86F3C_45%,#7A3D18_100%)]" />
-            <span className="absolute inset-0 -translate-x-full rounded-full bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.22)_50%,transparent_65%)] transition-transform duration-700 group-hover:translate-x-full" />
-            <span className="relative flex items-center gap-2 px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[#F6EFE8]">
-              <Star className="h-3 w-3 fill-[#F6EFE8]/50" />
-              {locale === "tr" ? "Tüm ürünler" : "All products"}
+          <Link
+            href={`/${locale}/products`}
+            className="group relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full px-7 py-3.5 text-xs font-bold uppercase tracking-[0.16em] text-[#F6EFE8] shadow-[0_6px_22px_rgba(184,111,60,0.35)] transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_30px_rgba(184,111,60,0.5)] active:scale-95"
+          >
+            <span className="absolute inset-0 rounded-full bg-[linear-gradient(135deg,#D4895A_0%,#B86F3C_50%,#8C4E22_100%)] transition-opacity duration-300 group-hover:opacity-95" />
+            <span className="absolute inset-0 -translate-x-full rounded-full bg-[linear-gradient(105deg,transparent_35%,rgba(255,255,255,0.3)_50%,transparent_65%)] transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
+            <span className="absolute inset-[1px] rounded-full border border-white/20" />
+            <span className="relative flex items-center gap-2">
+              <span>{locale === "tr" ? "Tüm ürünler" : "All products"}</span>
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white/30">
+                <ArrowRight className="h-3 w-3 text-[#F6EFE8]" />
+              </span>
             </span>
           </Link>
           <Link

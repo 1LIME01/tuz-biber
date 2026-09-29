@@ -14,10 +14,22 @@ export function Ingredients({ dictionary }: IngredientsProps) {
         </div>
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {dictionary.ingredients.items.map((item, index) => (
-            <article key={item.name} className="rounded-xl border border-[#241B14]/12 bg-[#EFE6D5] p-6 shadow-[0_8px_24px_rgba(36,27,20,0.03)] transition-colors duration-200 hover:border-[#B86F3C]/40">
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-full bg-[#B86F3C] font-serif text-xs font-bold text-[#F6EFE8]">0{index + 1}</div>
-              <h3 className="font-serif text-lg font-bold text-[#241B14]">{item.name}</h3>
-              <p className="mt-2 text-xs leading-relaxed text-[#57402E]">{item.note}</p>
+            <article
+              key={item.name}
+              className="group relative flex flex-col justify-between rounded-2xl border border-[#B86F3C]/25 bg-[#FBF7F2] p-6 shadow-[0_8px_24px_rgba(184,111,60,0.08)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#B86F3C] hover:bg-white hover:shadow-[0_16px_36px_rgba(184,111,60,0.18)]"
+            >
+              <div>
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#8C4E22] to-[#B86F3C] font-serif text-sm font-bold text-[#F6EFE8] shadow-md">
+                  0{index + 1}
+                </div>
+                <h3 className="font-serif text-xl font-bold text-[#1C130E] group-hover:text-[#8C4E22] transition-colors">
+                  {item.name}
+                </h3>
+                <p className="mt-3 text-xs leading-relaxed text-[#241B14] font-medium opacity-90">
+                  {item.note}
+                </p>
+              </div>
+              <div className="mt-5 h-0.5 w-6 rounded-full bg-[#B86F3C]/40 group-hover:w-full group-hover:bg-[#B86F3C] transition-all duration-300" />
             </article>
           ))}
         </div>

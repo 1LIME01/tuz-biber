@@ -48,14 +48,14 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       <Hero lang={locale} dictionary={dictionary} />
       <HomeMotionSections lang={locale} />
       <TrustStrip dictionary={dictionary} />
-      <CategoryExplanation dictionary={dictionary} />
+      <CategoryExplanation dictionary={dictionary} lang={locale} />
       <ServingIdeas dictionary={dictionary} />
-      <ProductMacro dictionary={dictionary} />
+      <ProductMacro dictionary={dictionary} lang={locale} />
       <Ingredients dictionary={dictionary} />
       <CraftProcess dictionary={dictionary} />
-      <FounderStory dictionary={dictionary} />
+      <FounderStory dictionary={dictionary} lang={locale} />
       <CulturalComparison dictionary={dictionary} />
-      <HowToUse dictionary={dictionary} />
+      <HowToUse dictionary={dictionary} lang={locale} />
       <WaitlistForm dictionary={dictionary} lang={locale} />
     </>
   );

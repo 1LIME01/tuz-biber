@@ -77,9 +77,14 @@ export function WaitlistForm({ dictionary, lang }: { dictionary: BrandDictionary
             <button
               type="submit"
               disabled={status === "loading"}
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#B86F3C] px-8 py-3 text-sm font-semibold text-[#F6EFE8] transition-colors duration-200 hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
+              className="group relative inline-flex min-h-[52px] items-center justify-center overflow-hidden rounded-full px-9 py-3.5 text-sm font-bold uppercase tracking-[0.16em] text-[#F6EFE8] shadow-[0_8px_24px_rgba(184,111,60,0.38)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_12px_32px_rgba(184,111,60,0.5)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             >
-              {status === "loading" ? "..." : dictionary.waitlist.submit}
+              <span className="absolute inset-0 bg-gradient-to-r from-[#D4895A] via-[#B86F3C] to-[#8C4E22]" />
+              <span className="absolute inset-0 -translate-x-full rounded-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="relative flex items-center gap-2">
+                {status === "loading" ? "..." : dictionary.waitlist.submit}
+                <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+              </span>
             </button>
 
             {message && (

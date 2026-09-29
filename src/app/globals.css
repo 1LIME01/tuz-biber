@@ -83,7 +83,7 @@ select {
 
 .heading-hero {
   font-family: var(--font-serif-family);
-  font-size: clamp(2.75rem, 6.2vw, 5.5rem);
+  font-size: clamp(3rem, 7.5vw, 7rem);
   line-height: 1.04;
   letter-spacing: -0.025em;
 }
@@ -148,6 +148,14 @@ select {
   animation: hero-float 8s ease-in-out infinite;
 }
 
+.float-badge-left {
+  animation: float-left 6s ease-in-out infinite;
+}
+
+.float-badge-right {
+  animation: float-right 7s ease-in-out infinite 1s;
+}
+
 @keyframes hero-float {
   0%,
   100% {
@@ -155,6 +163,26 @@ select {
   }
   50% {
     transform: translateY(-6px);
+  }
+}
+
+@keyframes float-left {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+@keyframes float-right {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(5deg);
   }
 }
 

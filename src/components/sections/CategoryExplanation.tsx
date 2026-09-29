@@ -1,17 +1,34 @@
 import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
-import type { BrandDictionary } from "@/types";
+import type { BrandDictionary, Locale } from "@/types";
 
-type CategoryExplanationProps = { dictionary: BrandDictionary };
+type CategoryExplanationProps = { dictionary: BrandDictionary; lang?: Locale };
 
-export function CategoryExplanation({ dictionary }: CategoryExplanationProps) {
+export function CategoryExplanation({ dictionary, lang = "tr" }: CategoryExplanationProps) {
   return (
     <section className="bg-[#F6EFE8] py-20 sm:py-28">
       <Container className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div className="rounded-2xl border border-[#241B14]/12 bg-[#EFE6D5] p-8 shadow-[0_12px_32px_rgba(36,27,20,0.04)]">
-          <div className="aspect-[4/5] rounded-xl bg-[linear-gradient(135deg,_#241B14_0%,_#57402E_100%)] p-6 flex flex-col justify-end text-[#EFE6D5]">
-            <p className="font-serif text-3xl font-bold">Tuz Biber</p>
-            <p className="mt-2 text-xs uppercase tracking-[0.2em] text-[#B86F3C]">Finishing Seasoning</p>
+        <div className="group rounded-3xl border border-[#B86F3C]/35 bg-[#241B14] p-3 sm:p-4 shadow-[0_24px_60px_rgba(36,27,20,0.22)]">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[#1C130E] p-6 sm:p-8 flex flex-col justify-between text-[#EFE6D5]">
+            <img
+              src="/images/home4.png"
+              alt="Tuz Biber Finishing Seasoning"
+              className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1C130E]/95 via-black/20 to-black/35" />
+
+            <div className="relative z-10 flex items-center justify-between">
+              <span className="inline-flex rounded-full border border-white/25 bg-black/50 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-[#F6EFE8] backdrop-blur-md shadow-sm">
+                {lang === "tr" ? "Sofra Ritüeli" : "Table Ritual"}
+              </span>
+            </div>
+
+            <div className="relative z-10 border-t border-white/15 pt-5 backdrop-blur-[2px]">
+              <p className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#F6EFE8]">Tuz Biber</p>
+              <p className="mt-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-[#D4895A]">
+                {lang === "tr" ? "Bitiş Baharatı" : "Finishing Seasoning"}
+              </p>
+            </div>
           </div>
         </div>
         <div>

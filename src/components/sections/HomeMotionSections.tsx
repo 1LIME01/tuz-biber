@@ -5,13 +5,6 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, MessageCircle, Sparkles, Star, Utensils } from "lucide-react";
 import type { Locale } from "@/types";
 
-const aiProducts = [
-  { name: "BilgiAI", tag: "Akıllı Asistan", tagEn: "Smart Assistant", image: "/images/bilgiai.png" },
-  { name: "CallingAI", tag: "Sesli İletişim", tagEn: "Voice Communication", image: "/images/callingai.png" },
-  { name: "BossAI", tag: "Yönetici Çözümleri", tagEn: "Management Solutions", image: "/images/bossai.png" },
-  { name: "SiriusAI", tag: "Gelişmiş Zeka", tagEn: "Advanced Intelligence", image: "/images/siriusai.png" },
-];
-
 const tableProducts = [
   { name: "Sweets", nameTr: "Tatlılar", desc: "Tatlı & Çikolata Dokunuşu", descEn: "Warm sweet & pastry finish", badge: "Sweets", image: "/images/sweet.png", href: "sweets" },
   { name: "Cakes", nameTr: "Pastalar & Kekler", desc: "Kek & Fırın Sofraları", descEn: "Slow morning bakes", badge: "Cakes", image: "/images/cake.png", href: "cakes" },
@@ -83,37 +76,7 @@ export function HomeMotionSections({ lang }: { lang: Locale }) {
 
   return (
     <>
-      {/* ── Üst Kayan Şerit: AI / Teknoloji (Sıcak Bakır & Espresso Gradyan) ───────────────── */}
-      <section className="relative overflow-hidden border-y border-[#B86F3C]/25 bg-gradient-to-r from-[#170F0B] via-[#241B14] to-[#170F0B] py-3.5 text-[#EFE6D5]" aria-label="Sirius AI Tech products">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[#170F0B] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[#170F0B] to-transparent" />
-
-        <div className="marquee-track flex w-max gap-3 hover:[animation-play-state:paused]">
-          {[...aiProducts, ...aiProducts, ...aiProducts].map((item, index) => (
-            <div
-              key={`${item.name}-${index}`}
-              className="group flex w-44 flex-col overflow-hidden rounded-2xl border border-[#B86F3C]/30 bg-[#1C130E]/80 backdrop-blur-md transition-all duration-300 hover:border-[#B86F3C]/70 hover:bg-[#241B14]"
-            >
-              {/* Fotoğraf */}
-              <div className="relative h-28 w-full overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1C130E]/60 to-transparent" />
-              </div>
-              {/* Metin */}
-              <div className="px-3.5 py-2.5">
-                <span className="block text-xs font-bold tracking-wide text-[#F6EFE8]">{item.name}</span>
-                <span className="block text-[10px] font-medium text-[#B86F3C]/90">{lang === "tr" ? item.tag : item.tagEn}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Alt Kayan Şerit: Tuz Biber Ürün Kartları (Canlı, Sıcak ve Etkileşimli) ───────────── */}
+      {/* ── Alt Kayan Şerit: Tuz Biber Ürün Kartları ───────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#EFE6D5] to-[#E6DAC3] py-7" aria-label="Tuz Biber products">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#EFE6D5] to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#EFE6D5] to-transparent" />
@@ -140,7 +103,6 @@ export function HomeMotionSections({ lang }: { lang: Locale }) {
           ))}
         </div>
       </section>
-
 
       {/* ── Canlı & Sıcak İletişim / Get In Touch Kartı ────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[#F6EFE8] px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
@@ -206,8 +168,8 @@ export function HomeMotionSections({ lang }: { lang: Locale }) {
                       type="button"
                       onClick={() => setSlide(index)}
                       className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${index === slide
-                          ? "w-8 bg-gradient-to-r from-[#D4895A] to-[#B86F3C] shadow-[0_0_10px_#B86F3C]"
-                          : "w-2.5 bg-white/20 hover:bg-white/40"
+                        ? "w-8 bg-gradient-to-r from-[#D4895A] to-[#B86F3C] shadow-[0_0_10px_#B86F3C]"
+                        : "w-2.5 bg-white/20 hover:bg-white/40"
                         }`}
                       aria-label={`Slide ${index + 1}`}
                     />

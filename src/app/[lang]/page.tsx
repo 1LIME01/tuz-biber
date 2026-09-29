@@ -9,7 +9,6 @@ import { ProductMacro } from "@/components/sections/ProductMacro";
 import { ServingIdeas } from "@/components/sections/ServingIdeas";
 import { TrustStrip } from "@/components/sections/TrustStrip";
 import { WaitlistForm } from "@/components/sections/WaitlistForm";
-import { CTA } from "@/components/sections/CTA";
 import { HomeMotionSections } from "@/components/sections/HomeMotionSections";
 import { getDictionary, getSupportedLocales } from "@/utils/i18n";
 import type { Locale } from "@/types";

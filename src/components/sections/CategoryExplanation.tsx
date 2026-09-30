@@ -19,7 +19,7 @@ export function CategoryExplanation({ dictionary, lang = "tr" }: CategoryExplana
 
             <div className="relative z-10 flex items-center justify-between">
               <span className="inline-flex rounded-full border border-white/25 bg-black/50 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-[#F6EFE8] backdrop-blur-md shadow-sm">
-                {lang === "tr" ? "Sofra Ritüeli" : "Table Ritual"}
+                {lang === "tr" ? "Sofra Rutini" : "Table Rutine"}
               </span>
             </div>
 

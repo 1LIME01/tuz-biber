@@ -25,7 +25,7 @@ body {
   min-height: 100vh;
   background-color: var(--color-cream);
   color: var(--color-espresso);
-  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
+  font-family: var(--font-geist-sans), "Segoe UI","Times New Roman", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

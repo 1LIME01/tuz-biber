@@ -29,16 +29,7 @@
       "Yumurta, burrata, ızgara sebze, et ve sıcak ekmek için tasarlandı."
     ]
   },
-  "servingIdeas": {
-    "eyebrow": "Ateşten sonra serpin",
-    "title": "En çok anın değer kazandığı yerde tat verir.",
-    "items": [
-      { "title": "Yumuşak yumurta", "description": "Pürüzsüz yumurta ve zeytinyağlı tostun üzerine serpilince kahvaltı ritüele dönüşür." },
-      { "title": "Burrata", "description": "Burrata, domates ve birkaç serpmeyle masa aniden unutulmaz olur." },
-      { "title": "Izgara et", "description": "Sunumdan hemen önce serpilince lezzete ağırlık vermeden güzel bir savrlık gelir." },
-      { "title": "Kavrulmuş sebzeler", "description": "Havuç, patates ve karnabaharı uyandırır." }
-    ]
-  },
+ 
   "productMacro": {
     "label": "Karışım",
     "title": "Beş malzeme. Tek tanınan son nota.",

@@ -154,7 +154,7 @@ export function HomeMotionSections({ lang }: { lang: Locale }) {
                     href={`/${lang}/how-to-use`}
                     className="inline-flex items-center gap-2 rounded-full border border-[#EFE6D5]/25 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.14em] text-[#EFE6D5] backdrop-blur-sm transition-all duration-200 hover:border-[#B86F3C] hover:bg-[#B86F3C]/15"
                   >
-                    {lang === "tr" ? "Ritüeli İncele" : "Explore Ritual"}
+                    {lang === "tr" ? "Rutini İncele" : "Explore Rutine"}
                   </Link>
                 </div>
               </div>

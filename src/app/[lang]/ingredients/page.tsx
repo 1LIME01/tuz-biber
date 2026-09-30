@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { CircleDot, Droplets, Flame, Leaf, Sprout, Star } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { Container } from "@/components/ui/Container";
 import { PageDarkHero } from "@/components/sections/PageDarkHero";
-import { getDictionary, getSupportedLocales } from "@/utils/i18n";
+import { Container } from "@/components/ui/Container";
 import type { Locale } from "@/types";
+import { getDictionary, getSupportedLocales } from "@/utils/i18n";
+import type { LucideIcon } from "lucide-react";
+import { CircleDot, Droplets, Flame, Leaf, Sprout, Star } from "lucide-react";
+import Link from "next/link";
 
 const INGREDIENT_VISUALS: { icon: LucideIcon; blendPct: number }[] = [
   { icon: CircleDot, blendPct: 28 },
@@ -18,9 +18,15 @@ export function generateStaticParams() {
   return getSupportedLocales().map((lang) => ({ lang }));
 }
 
-export default async function IngredientsPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function IngredientsPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
-  const locale = getSupportedLocales().includes(lang as Locale) ? (lang as Locale) : "en";
+  const locale = getSupportedLocales().includes(lang as Locale)
+    ? (lang as Locale)
+    : "en";
   const dictionary = getDictionary(locale);
 
   const chips =
@@ -59,18 +65,26 @@ export default async function IngredientsPage({ params }: { params: Promise<{ la
               >
                 <div className="flex items-center justify-between bg-gradient-to-r from-[#241B14] via-[#3D2619] to-[#241B14] px-6 py-5">
                   <span className="text-xs font-bold uppercase tracking-[0.28em] text-[#D4895A]">
-                    {locale === "tr" ? `Malzeme 0${index + 1}` : `Ingredient 0${index + 1}`}
+                    {locale === "tr"
+                      ? `Malzeme 0${index + 1}`
+                      : `Ingredient 0${index + 1}`}
                   </span>
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#B86F3C]/40 bg-[#B86F3C]/20 text-[#F6EFE8]">
                     <Icon className="h-6 w-6 text-[#D4895A]" />
                   </span>
                 </div>
                 <div className={`p-7 sm:p-8 ${featured ? "sm:p-9" : ""}`}>
-                  <h2 className="font-serif text-2xl font-bold text-[#1C130E] sm:text-3xl">{item.name}</h2>
-                  <p className="mt-3 text-base leading-relaxed font-normal text-[#241B14]">{item.note}</p>
+                  <h2 className="font-serif text-2xl font-bold text-[#1C130E] sm:text-3xl">
+                    {item.name}
+                  </h2>
+                  <p className="mt-3 text-base leading-relaxed font-normal text-[#241B14]">
+                    {item.note}
+                  </p>
                   {featured ? (
                     <p className="mt-4 inline-block rounded-full bg-[#B86F3C]/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#8C4E22]">
-                      {locale === "tr" ? "Karışımın Kalbi" : "Heart of the Blend"}
+                      {locale === "tr"
+                        ? "Karışımın Kalbi"
+                        : "Heart of the Blend"}
                     </p>
                   ) : null}
                 </div>
@@ -149,15 +163,19 @@ export default async function IngredientsPage({ params }: { params: Promise<{ la
             <span className="relative flex items-center gap-2">
               <Star className="h-4 w-4 fill-[#F6EFE8]/50" />
               {locale === "tr" ? "Listeye Katıl" : "Join Waitlist"}
-              <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+              <span className="transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
             </span>
           </Link>
 
           <Link
             href={`/${locale}/how-to-use`}
-            className="inline-flex items-center justify-center rounded-full border border-[#241B14]/25 bg-white/70 px-7 py-4 text-xs font-bold uppercase tracking-[0.14em] text-[#241B14] backdrop-blur-sm transition-all hover:border-[#B86F3C] hover:bg-[#B86F3C]/10 hover:text-[#8C4E22]"
+            className="inline-flex items-center justify-center rounded-full border border-[#241B14]/40 bg-white/80 px-7 py-4 text-xs font-bold uppercase tracking-[0.14em] !text-[#241B14] shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-[#fff] hover:!bg-black/20 hover:text-[#F6EFE8]"
           >
-            {locale === "tr" ? "Nasıl Kullanılır?" : "How To Use?"}
+            <span className="!text-[#241B14] group-hover:!text-[#F6EFE8]">
+              {locale === "tr" ? "Nasıl Kullanılır?" : "How To Use?"}
+            </span>
           </Link>
         </div>
       </Container>

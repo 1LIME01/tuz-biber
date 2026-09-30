@@ -24,8 +24,8 @@ export default async function MealsPage({ params }: { params: Promise<{ lang: st
       }
       heroChips={
         tr
-          ? ["Pişirme sonrası", "El yapımı", "Sofra ritüeli"]
-          : ["Post-cook", "Handcrafted", "Table ritual"]
+          ? ["Pişirme sonrası", "El yapımı", "Sofra Rutini"]
+          : ["Post-cook", "Handcrafted", "Table rutine"]
       }
       spotlightSteps={
         tr

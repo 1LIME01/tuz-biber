@@ -1,67 +1,82 @@
-import Link from "next/link";
-import { ArrowRight, Utensils } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
-import { getDictionary, getSupportedLocales } from "@/utils/i18n";
 import type { Locale } from "@/types";
+import { getDictionary, getSupportedLocales } from "@/utils/i18n";
+import { ArrowRight, Utensils } from "lucide-react";
+import Link from "next/link";
 
 export function generateStaticParams() {
   return getSupportedLocales().map((lang) => ({ lang }));
 }
 
-export default async function StoryPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function StoryPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
-  const locale = getSupportedLocales().includes(lang as Locale) ? (lang as Locale) : "en";
+  const locale = getSupportedLocales().includes(lang as Locale)
+    ? (lang as Locale)
+    : "en";
   const dictionary = getDictionary(locale);
 
-  const pillars = locale === "tr" ? [
-    {
-      title: "Keşan’ın Sofrası",
-      desc: "Trakya’nın cömert topraklarında pişen her yemekte, son baharatın masada yavaşça eklenmesi bir saygı ritüelidir.",
-      tag: "Kökler",
-    },
-    {
-      title: "Florida’da El Yapımı",
-      desc: "Şef İnan Doğru, aile mutfağının sıcak anılarını Florida’da küçük partiler halinde, saf el işçiliğiyle yaşatıyor.",
-      tag: "Zanaat",
-    },
-    {
-      title: "Son Cümle Felsefesi",
-      desc: "Yemek ateşte pişer ancak hikaye tabakta tamamlanır. Tuz Biber, lezzetin tabaktaki son ve en unutulmaz cümlesidir.",
-      tag: "Felsefe",
-    },
-  ] : [
-    {
-      title: "The Table of Keşan",
-      desc: "In the generous lands of Thrace, adding the finishing spice slowly at the table is a timeless ritual of warmth and respect.",
-      tag: "Roots",
-    },
-    {
-      title: "Handcrafted in Florida",
-      desc: "Chef İnan Doğru brings family memories to life in Florida, blending small batches with dedicated hands-on craft.",
-      tag: "Craft",
-    },
-    {
-      title: "The Final Sentence",
-      desc: "Food cooks over fire, but the experience completes at the plate. Tuz Biber is the final, unforgettable signature.",
-      tag: "Philosophy",
-    },
-  ];
+  const pillars =
+    locale === "tr"
+      ? [
+          {
+            title: "Keşan’ın Sofrası",
+            desc: "Trakya’nın cömert topraklarında pişen her yemekte, son baharatın masada yavaşça eklenmesi bir saygı rutinidir.",
+            tag: "Kökler",
+          },
+          {
+            title: "Florida’da El Yapımı",
+            desc: "Şef İnan Doğru, aile mutfağının sıcak anılarını Florida’da küçük partiler halinde, saf el işçiliğiyle yaşatıyor.",
+            tag: "Zanaat",
+          },
+          {
+            title: "Son Cümle Felsefesi",
+            desc: "Yemek ateşte pişer ancak hikaye tabakta tamamlanır. Tuz Biber, lezzetin tabaktaki son ve en unutulmaz cümlesidir.",
+            tag: "Felsefe",
+          },
+        ]
+      : [
+          {
+            title: "The Table of Keşan",
+            desc: "In the generous lands of Thrace, adding the finishing spice slowly at the table is a timeless rutine of warmth and respect.",
+            tag: "Roots",
+          },
+          {
+            title: "Handcrafted in Florida",
+            desc: "Chef İnan Doğru brings family memories to life in Florida, blending small batches with dedicated hands-on craft.",
+            tag: "Craft",
+          },
+          {
+            title: "The Final Sentence",
+            desc: "Food cooks over fire, but the experience completes at the plate. Tuz Biber is the final, unforgettable signature.",
+            tag: "Philosophy",
+          },
+        ];
 
   return (
     <main className="relative overflow-hidden bg-[#F6EFE8] py-16 sm:py-24 lg:py-28 text-[#241B14]">
-      
       {/* ── Üst Hero Başlık Alanı (Tam ortalanmış) ────────────────────── */}
-      <Container className="relative flex flex-col items-center justify-center max-w-4xl text-center mx-auto">
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B86F3C]">
+      <Container className="flex flex-col items-center justify-center text-center mx-auto max-w-4xl">
+          <p className="!text-xs sm:!text-xl font-bold uppercase tracking-[0.25em] text-[#B86F3C]">
           {dictionary.storyPage.eyebrow}
         </p>
 
-        <Heading as="h1" className="heading-hero mt-4 text-[#241B14] max-w-3xl text-center">
+        <Heading
+          as="h3"
+          style={{ fontFamily: '"Times New Roman", Times, serif' }}
+          className="mt-4 !text-3xl sm:!text-6xl lg:!text-8xl font-normal !leading-tight text-[#241B14] max-w-6xl text-center"
+        >
           {dictionary.storyPage.title}
         </Heading>
 
-        <p className="mt-6 max-w-2xl font-serif text-xl font-medium leading-relaxed text-[#8C4E22] sm:text-2xl sm:leading-10 text-center">
+        <p
+          style={{ fontFamily: '"Times New Roman", Times, serif' }}
+          className="mt-5 max-w-2xl !text-base sm:!text-lg font-normal leading-relaxed text-[#8C4E22] text-center"
+        >
           {dictionary.storyPage.intro}
         </p>
       </Container>
@@ -70,7 +85,7 @@ export default async function StoryPage({ params }: { params: Promise<{ lang: st
       <Container className="mt-14 max-w-5xl">
         <div className="relative overflow-hidden rounded-3xl border border-[#B86F3C]/25 bg-gradient-to-br from-[#241B14] via-[#1C130E] to-[#2B180F] p-8 sm:p-14 text-[#EFE6D5] shadow-[0_24px_60px_rgba(36,27,20,0.25)]">
           <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[#B86F3C]/25 blur-[90px]" />
-          
+
           <div className="relative z-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div className="space-y-6 text-base leading-relaxed text-[#EFE6D5]/85 sm:text-lg sm:leading-8">
               {dictionary.storyPage.body.map((paragraph) => (
@@ -78,7 +93,7 @@ export default async function StoryPage({ params }: { params: Promise<{ lang: st
                   {paragraph}
                 </p>
               ))}
-              
+
               <div className="pt-2">
                 <blockquote className="border-l-2 border-[#B86F3C] pl-5 font-serif text-lg sm:text-xl italic text-[#F6EFE8]">
                   "{dictionary.founderStory.quote}"
@@ -97,9 +112,11 @@ export default async function StoryPage({ params }: { params: Promise<{ lang: st
               </div>
 
               <p className="mt-4 font-serif text-2xl font-bold text-[#F6EFE8]">
-                {locale === "tr" ? "Ateşten Sonraki İlk Dokunuş" : "The First Touch After Fire"}
+                {locale === "tr"
+                  ? "Ateşten Sonraki İlk Dokunuş"
+                  : "The First Touch After Fire"}
               </p>
-              
+
               <p className="mt-3 text-sm leading-relaxed text-[#EFE6D5]/70">
                 {locale === "tr"
                   ? "Tuz Biber, bir yemek pişirme tozu değil; sofraya oturanların tabağına kattığı sıcak bir an ve sevgi bağıdır."
@@ -181,7 +198,9 @@ export default async function StoryPage({ params }: { params: Promise<{ lang: st
             <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
             <span className="absolute inset-[1px] rounded-full border border-white/20" />
             <span className="relative flex items-center gap-2.5">
-              <span>{locale === "tr" ? "Tuz Biber Edin" : "Get Tuz Biber"}</span>
+              <span>
+                {locale === "tr" ? "Tuz Biber Edin" : "Get Tuz Biber"}
+              </span>
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white/30">
                 <ArrowRight className="h-3.5 w-3.5 text-[#F6EFE8]" />
               </span>
@@ -199,4 +218,3 @@ export default async function StoryPage({ params }: { params: Promise<{ lang: st
     </main>
   );
 }
-

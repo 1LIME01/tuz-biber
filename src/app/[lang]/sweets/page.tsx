@@ -24,8 +24,8 @@ export default async function SweetsPage({ params }: { params: Promise<{ lang: s
       }
       heroChips={
         tr
-          ? ["Pişirme sonrası", "El yapımı", "Sofra ritüeli"]
-          : ["Post-cook", "Handcrafted", "Table ritual"]
+          ? ["Pişirme sonrası", "El yapımı", "Sofra rutini"]
+          : ["Post-cook", "Handcrafted", "Table rutine"]
       }
       spotlightSteps={
         tr
@@ -48,8 +48,8 @@ export default async function SweetsPage({ params }: { params: Promise<{ lang: s
       ]}
       usageTip={
         tr
-          ? "Servis tabağına yerleştirdikten sonra, birkaç tutam Tuz Biber serpin. Yemek masasındaki son ritüeliniz olsun."
-          : "After plating, dust a generous pinch of Tuz Biber. Let it be your final table ritual."
+          ? "Servis tabağına yerleştirdikten sonra, birkaç tutam Tuz Biber serpin. Yemek masasındaki son rutininiz olsun."
+          : "After plating, dust a generous pinch of Tuz Biber. Let it be your final table rutine."
       }
       relatedCategories={[
         { href: `/${locale}/cakes`, title: tr ? "Pastalar" : "Cakes" },

@@ -35,10 +35,10 @@ const products = [
     titleEn: "Drinks",
     tagTr: "Kahve & Kokteyl",
     tagEn: "Coffee & Cocktails",
-    descriptionTr: "Kahveler, sıcak içecekler ve özel sunumlar için aromatik eşleşmeler ve ritüeller.",
-    descriptionEn: "Pairings built for aromatic coffee rituals, hot beverages and artisanal sips.",
+    descriptionTr: "Kahveler, sıcak içecekler ve özel sunumlar için aromatik eşleşmeler ve rutinler.",
+    descriptionEn: "Pairings built for aromatic coffee rutines, hot beverages and artisanal sips.",
     image: "/images/drink.png",
-    badgeTr: "Aromatik Ritüel",
+    badgeTr: "Aromatik Rutin",
     badgeEn: "Aroma Pairing",
   },
   {
@@ -50,8 +50,8 @@ const products = [
     descriptionTr: "Her tabağa, ızgaralara ve ziyafet sofralarına zenginlik katan karakteristik son vuruş.",
     descriptionEn: "The distinctive final note for every plate, roasted savory dishes and gatherings.",
     image: "/images/meal.png",
-    badgeTr: "Sofra Ritüeli",
-    badgeEn: "Table Ritual",
+    badgeTr: "Sofra Rutini",
+    badgeEn: "Table Rutine",
   },
 ];
 

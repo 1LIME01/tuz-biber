@@ -1,6 +1,5 @@
 import { Container } from "@/components/ui/Container";
 import { Heading } from "@/components/ui/Heading";
-import { Sparkles } from "lucide-react";
 import type { BrandDictionary } from "@/types";
 
 type CraftProcessProps = { dictionary: BrandDictionary };
@@ -11,18 +10,45 @@ const stepBadges = [
   { stepNo: "03", sub: "Geleneksel El Dövmesi" },
 ];
 
+// Uzunluk ve renkleri birbirine bağlayan kart desenleri
+const linesPattern = [
+  // 1. Kart: [Uzun - Turuncu], [Orta - Orta Kahve], [Kısa - Açık Kahve]
+  [
+    { width: "w-8", color: "bg-[#B86F3C]" },
+    { width: "w-4", color: "bg-[#8C4E22]/60" },
+    { width: "w-2", color: "bg-[#8C4E22]/35" },
+  ],
+  // 2. Kart: [Orta - Orta Kahve], [Uzun - Turuncu], [Kısa - Açık Kahve]
+  [
+    { width: "w-4", color: "bg-[#8C4E22]/60" },
+    { width: "w-8", color: "bg-[#B86F3C]" },
+    { width: "w-2", color: "bg-[#8C4E22]/35" },
+  ],
+  // 3. Kart: [Kısa - Açık Kahve], [Orta - Orta Kahve], [Uzun - Turuncu]
+  [
+    { width: "w-2", color: "bg-[#8C4E22]/35" },
+    { width: "w-4", color: "bg-[#8C4E22]/60" },
+    { width: "w-8", color: "bg-[#B86F3C]" },
+  ],
+];
+
 export function CraftProcess({ dictionary }: CraftProcessProps) {
   return (
     <section className="bg-[#EFE6D5] py-20 sm:py-28">
       <Container>
         <div className="mb-12 max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B86F3C]">{dictionary.craftProcess.eyebrow}</p>
-          <Heading as="h2" className="heading-section mt-4 text-[#241B14]">{dictionary.craftProcess.title}</Heading>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#B86F3C]">
+            {dictionary.craftProcess.eyebrow}
+          </p>
+          <Heading as="h2" className="heading-section mt-4 text-[#241B14]">
+            {dictionary.craftProcess.title}
+          </Heading>
         </div>
 
         <div className="grid gap-7 lg:grid-cols-3">
           {dictionary.craftProcess.steps.map((step, index) => {
             const badge = stepBadges[index] ?? stepBadges[0];
+            const currentLines = linesPattern[index % linesPattern.length];
 
             return (
               <article
@@ -51,11 +77,15 @@ export function CraftProcess({ dictionary }: CraftProcessProps) {
                     <h3 className="font-serif text-3xl sm:text-4xl font-extrabold tracking-tight text-[#1C130E] transition-colors duration-200 group-hover:text-[#8C4E22]">
                       {step.title.replace(/^\d+\.\s*/, "")}
                     </h3>
-                    {/* Estetik İki Renkli Vurgu Çizgisi */}
+
+                    {/* Renk ve Uzunluk Uyumlu Dinamik Çizgiler */}
                     <div className="mt-3.5 flex items-center gap-1.5">
-                      <span className="h-1 w-8 rounded-full bg-[#B86F3C]" />
-                      <span className="h-1 w-2 rounded-full bg-[#8C4E22]/50" />
-                      <span className="h-1 w-1 rounded-full bg-[#8C4E22]/30" />
+                      {currentLines.map((line, lIdx) => (
+                        <span
+                          key={lIdx}
+                          className={`h-1 ${line.width} ${line.color} rounded-full transition-colors duration-300`}
+                        />
+                      ))}
                     </div>
                   </div>
 
@@ -68,8 +98,7 @@ export function CraftProcess({ dictionary }: CraftProcessProps) {
                 {/* Alt Detay Şeridi */}
                 <div className="relative z-10 mt-8 border-t border-[#B86F3C]/15 pt-4">
                   <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#8C4E22]">
-                    <span>Geleneksel Ritüel</span>
-                    <span className="text-sm transition-transform duration-300 group-hover:translate-x-1.5">→</span>
+                    <span>Geleneksel Rutin</span>
                   </div>
                 </div>
               </article>
@@ -80,4 +109,3 @@ export function CraftProcess({ dictionary }: CraftProcessProps) {
     </section>
   );
 }
-

@@ -4,9 +4,9 @@ import { CulturalComparison } from "@/components/sections/CurturalComparison";
 import { FounderStory } from "@/components/sections/FounderStory";
 import { Hero } from "@/components/sections/Hero";
 import { HowToUse } from "@/components/sections/HowToUse";
-import { Ingredients } from "@/components/sections/Ingredients";
+// import { Ingredients } from "@/components/sections/Ingredients";
 import { ProductMacro } from "@/components/sections/ProductMacro";
-import { ServingIdeas } from "@/components/sections/ServingIdeas";
+// import {ServingIdeas } from "@/components/sections/ServingIdeas";
 import { TrustStrip } from "@/components/sections/TrustStrip";
 import { WaitlistForm } from "@/components/sections/WaitlistForm";
 import { HomeMotionSections } from "@/components/sections/HomeMotionSections";
@@ -48,9 +48,9 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       <HomeMotionSections lang={locale} />
       <TrustStrip dictionary={dictionary} />
       <CategoryExplanation dictionary={dictionary} lang={locale} />
-      <ServingIdeas dictionary={dictionary} />
+      {/* <ServingIdeas dictionary={dictionary} /> */}
       <ProductMacro dictionary={dictionary} lang={locale} />
-      <Ingredients dictionary={dictionary} />
+      {/* <Ingredients dictionary={dictionary} /> */}
       <CraftProcess dictionary={dictionary} />
       <FounderStory dictionary={dictionary} lang={locale} />
       <CulturalComparison dictionary={dictionary} />

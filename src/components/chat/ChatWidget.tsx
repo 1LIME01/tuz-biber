@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, Minus, SendHorizonal, X } from "lucide-react";
 import type { Locale } from "@/types";
 
@@ -66,7 +66,9 @@ function getAssistantReply(input: string, lang: Locale) {
 export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isWidgetVisible, setIsWidgetVisible] = useState(false);
   const [showHint, setShowHint] = useState(false);
+  const [initialHintDone, setInitialHintDone] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "welcome",
@@ -76,41 +78,103 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
   ]);
   const [input, setInput] = useState("");
   const chatRef = useRef<HTMLDivElement | null>(null);
+  const revealTimerRef = useRef<number | null>(null);
+  const hintTimerRef = useRef<number | null>(null);
+
+  const clearHintTimer = useCallback(() => {
+    if (hintTimerRef.current) {
+      window.clearTimeout(hintTimerRef.current);
+      hintTimerRef.current = null;
+    }
+  }, []);
+
+  const showHoverHint = useCallback(() => {
+    if (!initialHintDone || isOpen) return;
+
+    clearHintTimer();
+    setShowHint(true);
+    hintTimerRef.current = window.setTimeout(() => {
+      setShowHint(false);
+      hintTimerRef.current = null;
+    }, 2000);
+  }, [clearHintTimer, initialHintDone, isOpen]);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShowHint(true), 2000);
-    return () => window.clearTimeout(timer);
-  }, []);
+    const sessionStarted = window.sessionStorage.getItem("tuz-biber-chat-session");
+
+    if (sessionStarted) {
+      const revealImmediately = window.setTimeout(() => {
+        setIsWidgetVisible(true);
+        setInitialHintDone(true);
+      }, 0);
+
+      return () => {
+        window.clearTimeout(revealImmediately);
+        clearHintTimer();
+      };
+    }
+
+    revealTimerRef.current = window.setTimeout(() => {
+      setIsWidgetVisible(true);
+      setShowHint(true);
+      hintTimerRef.current = window.setTimeout(() => {
+        setShowHint(false);
+        setInitialHintDone(true);
+        hintTimerRef.current = null;
+      }, 5000);
+      revealTimerRef.current = null;
+    }, 2000);
+
+    return () => {
+      if (revealTimerRef.current) {
+        window.clearTimeout(revealTimerRef.current);
+        revealTimerRef.current = null;
+      }
+      clearHintTimer();
+    };
+  }, [clearHintTimer]);
 
   useEffect(() => {
     const handler = () => {
+      clearHintTimer();
+      setShowHint(false);
+      setInitialHintDone(true);
       setIsOpen(true);
       setIsMinimized(false);
     };
     window.addEventListener("tuz-biber-chat-toggle", handler);
     return () => window.removeEventListener("tuz-biber-chat-toggle", handler);
-  }, []);
+  }, [clearHintTimer]);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
     const sessionStarted = window.sessionStorage.getItem("tuz-biber-chat-session");
+
     if (!sessionStarted) {
       window.sessionStorage.setItem("tuz-biber-chat-session", "1");
-      setIsOpen(false);
-      setIsMinimized(false);
     }
     if (!saved) return;
 
+    let restoreTimer: number | null = null;
+
     try {
       const parsed = JSON.parse(saved) as { isOpen?: boolean; isMinimized?: boolean; messages?: ChatMessage[] };
-      if (parsed.messages?.length) setMessages(parsed.messages);
-      if (sessionStarted) {
-        if (typeof parsed.isOpen === "boolean") setIsOpen(parsed.isOpen);
-        if (typeof parsed.isMinimized === "boolean") setIsMinimized(parsed.isMinimized);
-      }
+      restoreTimer = window.setTimeout(() => {
+        if (parsed.messages?.length) setMessages(parsed.messages);
+        if (sessionStarted) {
+          if (typeof parsed.isOpen === "boolean") setIsOpen(parsed.isOpen);
+          if (typeof parsed.isMinimized === "boolean") setIsMinimized(parsed.isMinimized);
+        }
+      }, 0);
     } catch {
       // Ignore malformed history.
     }
+
+    return () => {
+      if (restoreTimer) {
+        window.clearTimeout(restoreTimer);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -142,6 +206,9 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
 
     setMessages((current) => [...current, userMessage, assistantMessage]);
     setInput("");
+    clearHintTimer();
+    setShowHint(false);
+    setInitialHintDone(true);
     setIsOpen(true);
     setIsMinimized(false);
   };
@@ -184,25 +251,29 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
   };
 
   return (
-    <div className="fixed right-4 bottom-5 z-[60] sm:right-8 sm:bottom-8 flex flex-col items-end">
-      {!isOpen && !isMinimized && showHint && (
+    <div className={`fixed right-4 bottom-5 z-[60] flex flex-col items-end transition-all duration-700 ease-out sm:right-8 sm:bottom-8 ${isWidgetVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0 pointer-events-none"}`}>
+      {!isOpen && showHint && (
         <div className="mb-2 rounded-full border border-[#B86F3C]/30 bg-[#241B14] px-4 py-2 text-xs font-medium text-[#EFE6D5] shadow-[0_12px_24px_rgba(0,0,0,0.25)]">
           {lang === "tr" ? "Hoş geldiniz! Nasıl yardımcı olabilirim?" : "Welcome! How can I help you?"}
         </div>
       )}
 
       {!isOpen && !isMinimized && (
-        <button
-          type="button"
-          onClick={() => {
-            setIsOpen(true);
-            setIsMinimized(false);
-          }}
-          className="flex h-13 w-13 items-center justify-center rounded-full border border-[#B86F3C]/40 bg-[#241B14] text-[#F6EFE8] shadow-[0_16px_32px_rgba(0,0,0,0.3)] transition-colors duration-200 hover:bg-[#B86F3C] cursor-pointer"
-          aria-label="Open chat"
-        >
-          <MessageCircle className="h-6 w-6 text-[#B86F3C]" />
-        </button>
+        <div onMouseEnter={showHoverHint}>
+          <button
+            type="button"
+            onClick={() => {
+              clearHintTimer();
+              setShowHint(false);
+              setIsOpen(true);
+              setIsMinimized(false);
+            }}
+            className="flex h-13 w-13 items-center justify-center rounded-full border border-[#B86F3C]/40 bg-[#241B14] text-[#F6EFE8] shadow-[0_16px_32px_rgba(0,0,0,0.3)] transition-colors duration-200 hover:bg-[#B86F3C] cursor-pointer"
+            aria-label="Open chat"
+          >
+            <MessageCircle className="h-6 w-6 text-[#B86F3C]" />
+          </button>
+        </div>
       )}
 
       {isOpen && (
@@ -256,9 +327,11 @@ export function ChatWidget({ lang = "tr" }: { lang?: Locale }) {
       )}
 
       {isMinimized && !isOpen && (
-        <button type="button" onClick={() => { setIsMinimized(false); setIsOpen(true); }} className="flex h-13 w-13 items-center justify-center rounded-full border border-[#B86F3C]/40 bg-[#241B14] text-[#F6EFE8] shadow-[0_16px_32px_rgba(0,0,0,0.3)] transition-colors duration-200 hover:bg-[#B86F3C] cursor-pointer" aria-label="Reopen chat">
-          <MessageCircle className="h-5 w-5 text-[#B86F3C]" />
-        </button>
+        <div onMouseEnter={showHoverHint}>
+          <button type="button" onClick={() => { clearHintTimer(); setShowHint(false); setIsMinimized(false); setIsOpen(true); }} className="flex h-13 w-13 items-center justify-center rounded-full border border-[#B86F3C]/40 bg-[#241B14] text-[#F6EFE8] shadow-[0_16px_32px_rgba(0,0,0,0.3)] transition-colors duration-200 hover:bg-[#B86F3C] cursor-pointer" aria-label="Reopen chat">
+            <MessageCircle className="h-5 w-5 text-[#B86F3C]" />
+          </button>
+        </div>
       )}
     </div>
   );

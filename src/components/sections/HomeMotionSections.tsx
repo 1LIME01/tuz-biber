@@ -1,15 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, MessageCircle, Sparkles, Star, Utensils } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MessageCircle } from "lucide-react";
 import type { Locale } from "@/types";
 
 const tableProducts = [
-  { name: "Sweets", nameTr: "Tatlılar", desc: "Tatlı & Çikolata Dokunuşu", descEn: "Warm sweet & pastry finish", badge: "Sweets", image: "/images/sweet.png", href: "sweets" },
-  { name: "Cakes", nameTr: "Pastalar & Kekler", desc: "Kek & Fırın Sofraları", descEn: "Slow morning bakes", badge: "Cakes", image: "/images/cake.png", href: "cakes" },
-  { name: "Drinks", nameTr: "İçecekler", desc: "Kahve & Kokteyl Ritüeli", descEn: "Coffee & drink ritual", badge: "Drinks", image: "/images/drink.png", href: "drinks" },
-  { name: "Meals", nameTr: "Yemekler", desc: "Sıcak Tabaklar & Lezzet", descEn: "Finishing savory plates", badge: "Meals", image: "/images/meal.png", href: "meals" },
+  { name: "Sweets", nameTr: "Tatlılar", desc: "Tatlı & Çikolata Dokunuşu", descEn: "Warm sweet & pastry finish", badgeTr: "Tatlılar", badgeEn: "Sweets", image: "/images/sweet.png", href: "sweets" },
+  { name: "Cakes", nameTr: "Pastalar & Kekler", desc: "Kek & Fırın Sofraları", descEn: "Slow morning bakes", badgeTr: "Pastalar", badgeEn: "Cakes", image: "/images/cake.png", href: "cakes" },
+  { name: "Drinks", nameTr: "İçecekler", desc: "Kahve & Kokteyl Ritüeli", descEn: "Coffee & drink ritual", badgeTr: "İçecekler", badgeEn: "Drinks", image: "/images/drink.png", href: "drinks" },
+  { name: "Meals", nameTr: "Yemekler", desc: "Sıcak Tabaklar & Lezzet", descEn: "Finishing savory plates", badgeTr: "Yemekler", badgeEn: "Meals", image: "/images/meal.png", href: "meals" },
 ];
 
 const slides = {
@@ -19,21 +20,18 @@ const slides = {
       title: "Güne sıcak bir lezzet dokunuşuyla başlayın.",
       desc: "Yumurta, sıcak ekmek ve zeytinyağının buluştuğu ilk lokmaya baharatlı ve çıtır bir son dokunuş katın.",
       highlight: "Kahvaltı & Brunch",
-      icon: Utensils,
     },
     {
       tag: "Özel Kutlamalar",
       title: "Kutlamaların sofrasında unutulmaz bir imza.",
       desc: "Dostlarla kurulan kalabalık masaların ve doğum günlerinin son lezzet notasını birlikte tasarlayalım.",
       highlight: "Ziyafet & Davet",
-      icon: Star,
     },
     {
       tag: "Sofranın Ruhu",
       title: "Sofranıza kendi eşsiz ritüelinizi ekleyin.",
       desc: "Önce ateşte pişir, tabağa al, en son cömertçe serp; anı sofrada sevgiyle tamamla.",
       highlight: "El Yapımı Lezzet",
-      icon: Sparkles,
     },
   ],
   en: [
@@ -42,21 +40,18 @@ const slides = {
       title: "Start your day with a warm, textural touch.",
       desc: "Add a warm, spiced finishing touch and crunchy savory snap to eggs, olive oil toast, and early mornings.",
       highlight: "Breakfast & Brunch",
-      icon: Utensils,
     },
     {
       tag: "Memorable Celebrations",
       title: "Make gathering and celebrations unforgettable.",
       desc: "Let’s give every family gathering, feast, and celebration dinner a thoughtful, aromatic final note.",
       highlight: "Feasts & Dining",
-      icon: Star,
     },
     {
       tag: "The Table Spirit",
       title: "Create your own timeless table ritual.",
       desc: "Cook first, plate second, sprinkle last; savor the warm contrast and elevate every single plate.",
       highlight: "Handcrafted Flavor",
-      icon: Sparkles,
     },
   ],
 } as const;
@@ -72,8 +67,6 @@ export function HomeMotionSections({ lang }: { lang: Locale }) {
   }, [lang]);
 
   const currentSlide = slides[lang][slide];
-  const IconComponent = currentSlide.icon;
-
   return (
     <>
       {/* ── Alt Kayan Şerit: Tuz Biber Ürün Kartları ───────────────────────────────────────────── */}
@@ -85,20 +78,46 @@ export function HomeMotionSections({ lang }: { lang: Locale }) {
           {[...tableProducts, ...tableProducts, ...tableProducts].map((item, index) => (
             <Link
               key={`${item.name}-${index}`}
-              href={`/${lang}/products`}
-              className="group relative flex items-center gap-3 overflow-hidden rounded-xl border border-[#B86F3C]/20 bg-[#FBF7F2] px-4 py-2.5 shadow-[0_2px_12px_rgba(184,111,60,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#B86F3C]/45 hover:bg-white hover:shadow-[0_6px_20px_rgba(184,111,60,0.14)]"
+              href={`/${lang}/${item.href}`}
+              className="group relative flex h-[188px] w-[272px] flex-col justify-between overflow-hidden rounded-[24px] border border-[#B86F3C]/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(246,239,232,0.98))] p-4 shadow-[0_8px_24px_rgba(184,111,60,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-[#B86F3C]/35 hover:shadow-[0_14px_32px_rgba(184,111,60,0.14)]"
             >
               <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#B86F3C]/35 to-transparent" />
-              <span
-                className="text-[10px] font-bold uppercase tracking-[0.2em]"
-                style={{ background: "linear-gradient(90deg,#C47A3A,#E8A96A)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
-              >
-                ✦
-              </span>
-              <span className="font-serif italic text-[13px] font-semibold text-[#241B14] transition-colors group-hover:text-[#8C4E22]">
-                {lang === "tr" ? item.nameTr : item.name}
-              </span>
-              <span className="text-[11px] text-[#B86F3C]/50 transition-all group-hover:translate-x-0.5 group-hover:text-[#B86F3C]">→</span>
+              <div className="flex items-start justify-between gap-3.5">
+                <div className="flex min-w-0 flex-1 items-start gap-3.5">
+                  <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-[18px] border border-white/70 bg-white shadow-[0_6px_18px_rgba(184,111,60,0.1)]">
+                    <Image
+                      src={item.image}
+                      alt={lang === "tr" ? item.nameTr : item.name}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="56px"
+                    />
+                  </div>
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="inline-flex w-fit rounded-full border border-[#B86F3C]/12 bg-[#B86F3C]/6 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-[#B86F3C]">
+                      {lang === "tr" ? item.badgeTr : item.badgeEn}
+                    </span>
+                    <h3 className="mt-2 min-h-[42px] text-[15px] font-semibold leading-[1.35] tracking-[0.01em] text-[#241B14] transition-colors duration-300 group-hover:text-[#8C4E22]">
+                      {lang === "tr" ? item.nameTr : item.name}
+                    </h3>
+                  </div>
+                </div>
+
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#B86F3C]/14 bg-white/85 text-[#B86F3C] transition-all duration-300 group-hover:border-[#B86F3C]/35 group-hover:bg-[#B86F3C] group-hover:text-white">
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+              </div>
+
+              <p className="mt-4 min-h-[40px] line-clamp-2 text-[13px] leading-5 text-[#6F5643]">
+                {lang === "tr" ? item.desc : item.descEn}
+              </p>
+
+              <div className="mt-4 flex items-center justify-between border-t border-[#B86F3C]/10 pt-3">
+                <span className="text-[11px] font-medium tracking-[0.06em] text-[#8A6B55]">
+                  {lang === "tr" ? "Kategoriyi incele" : "Explore category"}
+                </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#B86F3C]/35 transition-colors duration-300 group-hover:bg-[#B86F3C]" />
+              </div>
             </Link>
           ))}
         </div>
@@ -118,8 +137,7 @@ export function HomeMotionSections({ lang }: { lang: Locale }) {
               {/* Sol İçerik */}
               <div className="max-w-2xl">
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#B86F3C]/50 bg-[#B86F3C]/15 px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#F6EFE8]">
-                    <IconComponent className="h-3 w-3 text-[#B86F3C]" />
+                  <span className="inline-flex items-center rounded-full border border-[#B86F3C]/50 bg-[#B86F3C]/15 px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#F6EFE8]">
                     {currentSlide.tag}
                   </span>
                   <span className="text-[11px] font-semibold uppercase tracking-wider text-[#B86F3C]">

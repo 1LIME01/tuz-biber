@@ -24,9 +24,9 @@ export function FounderStory({ dictionary, lang = "tr" }: FounderStoryProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#1C130E]/95 via-black/20 to-black/35" />
             
             <div className="relative z-10 flex items-center justify-between">
-              <span className="inline-flex rounded-full border border-white/25 bg-black/50 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-[#F6EFE8] backdrop-blur-md shadow-sm">
+              {/* <span className="inline-flex rounded-full border border-white/25 bg-black/50 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-[#F6EFE8] backdrop-blur-md shadow-sm">
                 {lang === "tr" ? "Keşan Mirası" : "Keşan Heritage"}
-              </span>
+              </span> */}
             </div>
 
             <div className="relative z-10 border-t border-white/15 pt-5 backdrop-blur-[2px]">

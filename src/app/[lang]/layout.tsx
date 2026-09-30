@@ -37,7 +37,7 @@ export default async function LocaleLayout({
     <div className="relative min-h-screen bg-[#241B14] text-[#EFE6D5]">
       <CursorGlow />
       <Header lang={locale} dictionary={dictionary} />
-      <div className="relative z-10 min-h-[calc(100vh-90px)]">{children}</div>
+      <div className="relative z-10 min-h-[calc(100vh-90px)] pt-24 sm:pt-28">{children}</div>
       <Footer lang={locale} dictionary={dictionary} />
       <ChatWidget lang={locale} />
     </div>

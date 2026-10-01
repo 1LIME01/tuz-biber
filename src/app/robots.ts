@@ -1,12 +1,13 @@
 ﻿import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bibertuz.com";
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || "https://tuzbiber.com"}/sitemap.xml`,
-    host: process.env.NEXT_PUBLIC_SITE_URL || "https://tuzbiber.com",
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }

@@ -98,6 +98,16 @@ a {
   text-decoration: none;
 }
 
+.nav-logo-image {
+  border: 2px solid var(--color-copper);
+  border-radius: 25px;
+  transition: transform 200ms ease;
+}
+
+.site-navbar {
+  font-family: "Times New Roman", Times, serif;
+}
+
 button,
 input,
 textarea,

@@ -1,10 +1,9 @@
 "use client";
 
-import { ShieldCheck } from "lucide-react";
-import { useState } from "react";
-import { OtpModal } from "@/components/ui/OtpModal";
 import { PhoneInput } from "@/components/ui/PhoneInput";
 import type { BrandDictionary, Locale } from "@/types";
+import { Mail } from "lucide-react";
+import { useState } from "react";
 
 const MAX_MESSAGE_LENGTH = 500;
 const COUNTRY_CODE_LENGTHS: Record<string, number> = {
@@ -18,13 +17,37 @@ const COUNTRY_CODE_LENGTHS: Record<string, number> = {
 type ContactStatus = "idle" | "loading" | "success" | "error";
 type FieldName = "name" | "email" | "phone" | "message";
 
-export function ContactForm({ dictionary, lang }: { dictionary: BrandDictionary; lang: Locale }) {
+function FieldError({ error }: { error?: string }) {
+  if (!error) return null;
+
+  return (
+    <div className="relative mb-2 rounded-2xl border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700">
+      {error}
+    </div>
+  );
+}
+
+export function ContactForm({
+  dictionary,
+  lang,
+}: {
+  dictionary: BrandDictionary;
+  lang: Locale;
+}) {
   const [status, setStatus] = useState<ContactStatus>("idle");
   const [message, setMessage] = useState("");
-  const [otpModalOpen, setOtpModalOpen] = useState(false);
-  const [countryCode, setCountryCode] = useState<"+90" | "+1" | "+44" | "+49" | "+33">("+90");
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
-  const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldName, string>>>({});
+  const [countryCode, setCountryCode] = useState<
+    "+90" | "+1" | "+44" | "+49" | "+33"
+  >("+90");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<FieldName, string>>
+  >({});
 
   function validateForm() {
     const trimmedName = formData.name.trim();
@@ -34,8 +57,14 @@ export function ContactForm({ dictionary, lang }: { dictionary: BrandDictionary;
 
     const nextErrors: Partial<Record<FieldName, string>> = {};
     const nameParts = trimmedName.split(/\s+/).filter(Boolean);
-    if (!/^[A-Za-zÀ-ÖØ-öø-ÿĞğİıŞşÇçÖöÜü\s]+$/.test(trimmedName) || trimmedName.length < 2 || trimmedName.length > 50 || nameParts.some((part) => part.length > 25)) {
-      nextErrors.name = "Ad ve soyad yalnızca harflerden oluşmalı; her bölüm en fazla 25, toplam en fazla 50 karakter olmalıdır.";
+    if (
+      !/^[A-Za-zÀ-ÖØ-öø-ÿĞğİıŞşÇçÖöÜü\s]+$/.test(trimmedName) ||
+      trimmedName.length < 2 ||
+      trimmedName.length > 50 ||
+      nameParts.some((part) => part.length > 25)
+    ) {
+      nextErrors.name =
+        "Ad ve soyad yalnızca harflerden oluşmalı; her bölüm en fazla 25, toplam en fazla 50 karakter olmalıdır.";
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
@@ -47,185 +76,181 @@ export function ContactForm({ dictionary, lang }: { dictionary: BrandDictionary;
       nextErrors.phone = `Telefon numarası geçerli bir aralıkta olmalıdır. Maksimum ${maxDigits} rakam.`;
     }
 
-    if (trimmedMessage.length < 10 || trimmedMessage.length > MAX_MESSAGE_LENGTH) {
+    if (
+      trimmedMessage.length < 10 ||
+      trimmedMessage.length > MAX_MESSAGE_LENGTH
+    ) {
       nextErrors.message = `Mesaj uzunluğu 10 ile ${MAX_MESSAGE_LENGTH} karakter arasında olmalıdır.`;
     }
     setFieldErrors(nextErrors);
-    if (Object.keys(nextErrors).length) throw new Error(Object.values(nextErrors)[0]);
-  }
-
-  async function waitForDelay() {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  }
-
-  async function requestOtp() {
-    validateForm();
-    setStatus("loading");
-    setMessage("🛞 Gönderiliyor...");
-    await waitForDelay();
-
-    const response = await fetch("/api/otp/send", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...formData,
-        phone: `${countryCode} ${formData.phone}`,
-        lang,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      setStatus("error");
-      setMessage(response.status === 404 ? "Gönderilmedi!" : data.message || "Gönderilemedi");
-      return;
-    }
-
-    setStatus("idle");
-    setMessage(data.message || dictionary.contact.otpDescription);
-    setOtpModalOpen(true);
-  }
-
-  async function handleOtpSubmit(code: string) {
-    setStatus("loading");
-    setMessage("🛞 Gönderiliyor...");
-    await waitForDelay();
-
-    const response = await fetch("/api/contact/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...formData,
-        phone: `${countryCode} ${formData.phone}`,
-        otp: code,
-        lang,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      const fallback = response.status === 404 ? "Gönderilmedi!" : response.status === 500 ? "Gönderilemedi" : data.message || dictionary.contact.error;
-      setStatus("error");
-      setMessage(fallback);
-      throw new Error(data.message || dictionary.contact.error);
-    }
-
-    setStatus("success");
-    setMessage(response.status === 200 ? "Gönderildi!" : data.message || dictionary.contact.success);
-    setOtpModalOpen(false);
-    setFormData({ name: "", email: "", phone: "", message: "" });
+    if (Object.keys(nextErrors).length)
+      throw new Error(Object.values(nextErrors)[0]);
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
-      await requestOtp();
+      validateForm();
+      setStatus("loading");
+      setMessage(dictionary.contact.sending);
+
+      const response = await fetch("/api/contact/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          phone: `${countryCode} ${formData.phone}`,
+          lang,
+        }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setStatus("error");
+        setMessage(data.message || dictionary.contact.error);
+        return;
+      }
+
+      setStatus("success");
+      setMessage(dictionary.contact.success);
+      setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : dictionary.contact.error);
+      setMessage(
+        error instanceof Error ? error.message : dictionary.contact.error,
+      );
     }
   }
 
-  const FieldError = ({ name }: { name: FieldName }) =>
-    fieldErrors[name] ? (
-      <div className="relative mb-2 rounded-2xl border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-700">
-        {fieldErrors[name]}
-      </div>
-    ) : null;
-
   return (
-    <>
-      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-        <div className="grid gap-6 sm:grid-cols-2">
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14] sm:col-span-2">
-            <FieldError name="name" />
-            <span className="mb-2 block">{dictionary.contact.fields.name}</span>
-            <div className="relative">
-              <input type="text" required value={formData.name} onChange={(event) => setFormData((current) => ({ ...current, name: event.target.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿĞğİıŞşÇçÖöÜü\s]/g, "").slice(0, 50) }))} className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-5 pr-12 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.name ? "border-red-500" : "border-[#241B14]/15"}`} />
-              {fieldErrors.name ? <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
-            </div>
-          </label>
-
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
-            <FieldError name="email" />
-            <span className="mb-2 block">{dictionary.contact.fields.email}</span>
-            <div className="relative">
-              <input type="email" required value={formData.email} onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))} className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-5 pr-12 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.email ? "border-red-500" : "border-[#241B14]/15"}`} />
-              {fieldErrors.email ? <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
-            </div>
-          </label>
-
-          <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
-            <FieldError name="phone" />
-            <span className="mb-2 block">{dictionary.contact.fields.phone}</span>
-            <div className="relative">
-              <PhoneInput
-                value={formData.phone}
-                countryCode={countryCode}
-                onCountryCodeChange={(nextCode) => setCountryCode(nextCode)}
-                onChange={(value) => setFormData((current) => ({ ...current, phone: value }))}
-                className={`w-full ${fieldErrors.phone ? "border-red-500" : ""}`}
-                inputClassName="min-h-[48px] w-full rounded-full border-0 bg-transparent px-2 py-2 pr-10 text-sm text-[#241B14] outline-none"
-                selectClassName="min-h-[44px] rounded-full bg-[#EFE6D5] px-2 text-xs font-semibold text-[#241B14] outline-none"
-              />
-              {fieldErrors.phone ? <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
-            </div>
-          </label>
-        </div>
-
-        <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
-          <span className="mb-2 block">{dictionary.contact.fields.message}</span>
-          <FieldError name="message" />
-          <textarea
-            required
-            rows={5}
-            maxLength={MAX_MESSAGE_LENGTH}
-            value={formData.message}
-            onChange={(event) => setFormData((current) => ({ ...current, message: event.target.value }))}
-            className={`w-full rounded-2xl border bg-[#F6EFE8] px-5 py-4 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.message ? "border-red-500" : "border-[#241B14]/15"}`}
-          />
-          {fieldErrors.message ? <span className="float-right -mt-12 mr-3 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">×</span> : null}
-          <span className="mt-2 block text-right text-xs font-normal text-[#57402E]">{formData.message.length}/{MAX_MESSAGE_LENGTH}</span>
+    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14] sm:col-span-2">
+          <FieldError error={fieldErrors.name} />
+          <span className="mb-2 block">{dictionary.contact.fields.name}</span>
+          <div className="relative">
+            <input
+              type="text"
+              required
+              value={formData.name}
+              onChange={(event) =>
+                setFormData((current) => ({
+                  ...current,
+                  name: event.target.value
+                    .replace(/[^A-Za-zÀ-ÖØ-öø-ÿĞğİıŞşÇçÖöÜü\s]/g, "")
+                    .slice(0, 50),
+                }))
+              }
+              className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-5 pr-12 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.name ? "border-red-500" : "border-[#241B14]/15"}`}
+            />
+            {fieldErrors.name ? (
+              <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">
+                ×
+              </span>
+            ) : null}
+          </div>
         </label>
 
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <button
-            type="submit"
-            disabled={status === "loading"}
-            className="inline-flex min-h-[50px] flex-1 items-center justify-center rounded-full bg-[#B86F3C] px-7 py-3 text-xs font-semibold uppercase tracking-wider text-[#F6EFE8] transition-colors duration-200 hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
-          >
-            {status === "loading" ? "🛞 Gönderiliyor..." : dictionary.contact.submit}
-          </button>
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#57402E]">
-            <ShieldCheck className="h-4 w-4 text-[#B86F3C]" />
-            Secure OTP
+        <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
+          <FieldError error={fieldErrors.email} />
+          <span className="mb-2 block">{dictionary.contact.fields.email}</span>
+          <div className="relative">
+            <input
+              type="email"
+              required
+              value={formData.email}
+              onChange={(event) =>
+                setFormData((current) => ({
+                  ...current,
+                  email: event.target.value,
+                }))
+              }
+              className={`min-h-[48px] w-full rounded-full border bg-[#F6EFE8] px-5 pr-12 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.email ? "border-red-500" : "border-[#241B14]/15"}`}
+            />
+            {fieldErrors.email ? (
+              <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">
+                ×
+              </span>
+            ) : null}
           </div>
+        </label>
+
+        <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
+          <FieldError error={fieldErrors.phone} />
+          <span className="mb-2 block">{dictionary.contact.fields.phone}</span>
+          <div className="relative">
+            <PhoneInput
+              value={formData.phone}
+              countryCode={countryCode}
+              onCountryCodeChange={(nextCode) => setCountryCode(nextCode)}
+              onChange={(value) =>
+                setFormData((current) => ({ ...current, phone: value }))
+              }
+              className={`w-full ${fieldErrors.phone ? "border-red-500" : ""}`}
+              inputClassName="min-h-[48px] w-full rounded-full border-0 bg-transparent px-2 py-2 pr-10 text-sm text-[#241B14] outline-none"
+              selectClassName="min-h-[44px] rounded-full bg-[#EFE6D5] px-2 text-xs font-semibold text-[#241B14] outline-none"
+            />
+            {fieldErrors.phone ? (
+              <span className="absolute right-3 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">
+                ×
+              </span>
+            ) : null}
+          </div>
+        </label>
+      </div>
+
+      <label className="block text-xs font-semibold uppercase tracking-wider text-[#241B14]">
+        <span className="mb-2 block">{dictionary.contact.fields.message}</span>
+        <FieldError error={fieldErrors.message} />
+        <textarea
+          required
+          rows={5}
+          maxLength={MAX_MESSAGE_LENGTH}
+          value={formData.message}
+          onChange={(event) =>
+            setFormData((current) => ({
+              ...current,
+              message: event.target.value,
+            }))
+          }
+          className={`w-full rounded-2xl border bg-[#F6EFE8] px-5 py-4 text-sm text-[#241B14] outline-none transition-colors duration-200 focus:border-[#B86F3C] ${fieldErrors.message ? "border-red-500" : "border-[#241B14]/15"}`}
+        />
+        {fieldErrors.message ? (
+          <span className="float-right -mt-12 mr-3 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">
+            ×
+          </span>
+        ) : null}
+        <span className="mt-2 block text-right text-xs font-normal text-[#57402E]">
+          {formData.message.length}/{MAX_MESSAGE_LENGTH}
+        </span>
+      </label>
+
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="inline-flex min-h-[50px] flex-1 items-center justify-center rounded-full bg-[#B86F3C] px-7 py-3 text-xs font-semibold uppercase tracking-wider text-[#F6EFE8] transition-colors duration-200 hover:bg-[#C67C46] disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
+        >
+          {status === "loading"
+            ? dictionary.contact.sending
+            : dictionary.contact.submit}
+        </button>
+        <div className="inline-flex items-center gap-2 text-xs font-medium text-[#57402E]">
+          <Mail className="h-4 w-4 shrink-0 text-[#B86F3C]" />
+          {dictionary.contact.emailNote}
         </div>
+      </div>
 
-        {message && (
-          <p
-            className={`text-sm font-medium transition-all duration-200 ${
-              status === "success" ? "text-[#241B14]" : "text-[#B86F3C]"
-            }`}
-          >
-            {message}
-          </p>
-        )}
-      </form>
-
-
-      <OtpModal
-        isOpen={otpModalOpen}
-        title={dictionary.contact.otpHeading}
-        description={dictionary.contact.otpDescription}
-        confirmLabel={dictionary.contact.otpSubmit}
-        otpLabel={dictionary.contact.fields.otp}
-        onClose={() => setOtpModalOpen(false)}
-        onConfirm={handleOtpSubmit}
-      />
-    </>
+      {message && (
+        <p
+          className={`text-sm font-medium transition-all duration-200 ${
+            status === "success" ? "text-[#241B14]" : "text-[#B86F3C]"
+          }`}
+        >
+          {message}
+        </p>
+      )}
+    </form>
   );
 }

@@ -18,14 +18,12 @@ export type ContactPayload = {
   email: string;
   phone: string;
   message: string;
-  otp: string;
   lang: Locale;
 };
 
 export type BrandDictionary = {
   header: {
     nav: NavItem[];
-    cta: string;
     language: string;
   };
   hero: {
@@ -97,11 +95,26 @@ export type BrandDictionary = {
     submit: string;
     success: string;
     error: string;
-    otpHeading: string;
-    otpDescription: string;
-    otpSubmit: string;
-    otpResend: string;
-    fields: { name: string; email: string; phone: string; message: string; otp: string };
+    sending: string;
+    emailNote: string;
+    fields: {
+      name: string;
+      email: string;
+      phone: string;
+      message: string;
+    };
+  };
+  blog: {
+    nav: string;
+    metaTitle: string;
+    metaDescription: string;
+    eyebrow: string;
+    title: string;
+    intro: string;
+    empty: string;
+    readMore: string;
+    allPosts: string;
+    readTime: string;
   };
   footer: {
     brand: string;

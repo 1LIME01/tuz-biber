@@ -1,6 +1,7 @@
 import { blog } from "@/lib/blog";
+import { translatePostDetail } from "@/lib/blogTranslation";
 import type { Locale } from "@/types";
-import { getSupportedLocales } from "@/utils/i18n";
+import { getDictionary, getSupportedLocales } from "@/utils/i18n";
 import { BlogApiError } from "@lobsterlead/blog-sdk";
 import { jsonLdScript, toNextMetadata } from "@lobsterlead/blog-sdk/next";
 import type { Metadata } from "next";
@@ -17,7 +18,8 @@ function getLocale(lang: string): Locale {
 
 async function getPostDetail(slug: string, locale: Locale) {
   try {
-    return await blog.posts.get(slug, { locale });
+    const detail = await blog.posts.get(slug, { locale: "tr" });
+    return locale === "en" ? await translatePostDetail(detail) : detail;
   } catch (error) {
     if (error instanceof BlogApiError && error.status === 404) return undefined;
     throw error;
@@ -47,6 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { lang, slug } = await params;
   const locale = getLocale(lang);
+  const copy = getDictionary(locale).blog;
   const detail = await getPostDetail(slug, locale);
   if (!detail) notFound();
 
@@ -65,7 +68,7 @@ export default async function BlogPostPage({ params }: Props) {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Blog",
+        name: copy.nav,
         item: `${siteUrl}${locale === "tr" ? "/blog" : "/en/blog"}`,
       },
       {
@@ -93,11 +96,10 @@ export default async function BlogPostPage({ params }: Props) {
             className="blog-back-link"
             href={locale === "tr" ? "/blog" : "/en/blog"}
           >
-            <span aria-hidden="true">←</span>{" "}
-            {locale === "tr" ? "Tüm yazılar" : "All stories"}
+            <span aria-hidden="true">←</span> {copy.allPosts}
           </Link>
           <p className="blog-eyebrow">
-            {post.tags.slice(0, 2).join(" · ") || "Tuz Biber Journal"}
+            {post.tags.slice(0, 2).join(" · ") || copy.eyebrow}
           </p>
           <h1>{post.title}</h1>
           {post.excerpt && <p className="post-excerpt">{post.excerpt}</p>}
@@ -111,9 +113,10 @@ export default async function BlogPostPage({ params }: Props) {
               </time>
             )}
             <span className="ll-reading-time">
-              {locale === "tr"
-                ? `${post.readingTimeMinutes} dk okuma`
-                : `${post.readingTimeMinutes} min read`}
+              {copy.readTime.replace(
+                "{minutes}",
+                String(post.readingTimeMinutes),
+              )}
             </span>
           </div>
           {post.coverImage && (

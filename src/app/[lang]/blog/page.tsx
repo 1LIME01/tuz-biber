@@ -1,6 +1,7 @@
 import { blog } from "@/lib/blog";
+import { translatePostSummaries } from "@/lib/blogTranslation";
 import type { Locale } from "@/types";
-import { getSupportedLocales } from "@/utils/i18n";
+import { getDictionary, getSupportedLocales } from "@/utils/i18n";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -15,11 +16,9 @@ function getLocale(lang: string): Locale {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   const locale = getLocale(lang);
-  const title = "Blog | Tuz Biber";
-  const description =
-    locale === "tr"
-      ? "Tuz Biber tarifleri, malzemeleri ve mutfak kültürü üzerine yazılar."
-      : "Stories about Tuz Biber recipes, ingredients, and food culture.";
+  const copy = getDictionary(locale).blog;
+  const title = copy.metaTitle;
+  const description = copy.metaDescription;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bibertuz.com";
 
   return {
@@ -41,21 +40,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogListPage({ params }: Props) {
   const { lang } = await params;
   const locale = getLocale(lang);
-  const { posts } = await blog.posts.list({ limit: 20, locale });
+  const copy = getDictionary(locale).blog;
+  const { posts: sourcePosts } = await blog.posts.list({
+    limit: 20,
+    locale: "tr",
+  });
+  const posts =
+    locale === "en" ? await translatePostSummaries(sourcePosts) : sourcePosts;
 
   return (
     <main className="blog-page">
       <section className="blog-index">
-        <p className="blog-eyebrow">
-          Tuz Biber ·{" "}
-          {locale === "tr" ? "Mutfak Defteri" : "The Kitchen Journal"}
-        </p>
-        <h1>{locale === "tr" ? "Blog" : "Journal"}</h1>
-        <p className="blog-intro">
-          {locale === "tr"
-            ? "Lezzet, malzeme ve sofra kültürü üzerine hikâyeler."
-            : "Stories on flavor, ingredients, and the culture of the table."}
-        </p>
+        <p className="blog-eyebrow">Tuz Biber · {copy.eyebrow}</p>
+        <h1>{copy.title}</h1>
+        <p className="blog-intro">{copy.intro}</p>
 
         {posts.length ? (
           <div className="blog-grid">
@@ -89,16 +87,16 @@ export default async function BlogListPage({ params }: Props) {
                         </time>
                       )}
                       <span className="ll-reading-time">
-                        {locale === "tr"
-                          ? `${post.readingTimeMinutes} dk okuma`
-                          : `${post.readingTimeMinutes} min read`}
+                        {copy.readTime.replace(
+                          "{minutes}",
+                          String(post.readingTimeMinutes),
+                        )}
                       </span>
                     </div>
                     <h2>{post.title}</h2>
                     {post.excerpt && <p>{post.excerpt}</p>}
                     <span className="blog-card-cta">
-                      {locale === "tr" ? "Yazıyı oku" : "Read story"}{" "}
-                      <span aria-hidden="true">→</span>
+                      {copy.readMore} <span aria-hidden="true">→</span>
                     </span>
                   </div>
                 </Link>
@@ -106,11 +104,7 @@ export default async function BlogListPage({ params }: Props) {
             ))}
           </div>
         ) : (
-          <p className="blog-empty">
-            {locale === "tr"
-              ? "Yeni yazılar çok yakında burada."
-              : "New stories are coming soon."}
-          </p>
+          <p className="blog-empty">{copy.empty}</p>
         )}
       </section>
     </main>

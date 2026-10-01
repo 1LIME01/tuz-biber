@@ -1,7 +1,7 @@
-﻿import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+﻿import { escapeHtml } from "@/lib/html";
 import { sendSecureEmail } from "@/lib/smtp";
-import { escapeHtml } from "@/lib/otp";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -15,7 +15,10 @@ export async function POST(request: NextRequest) {
     const message = String(body.message || "").trim();
 
     if (!name || !email || !message || !isValidEmail(email)) {
-      return NextResponse.json({ message: "Please complete all fields with a valid email." }, { status: 400 });
+      return NextResponse.json(
+        { message: "Please complete all fields with a valid email." },
+        { status: 400 },
+      );
     }
 
     const recipient = process.env.DEV_TEAM_EMAIL || "miraczer05@gmail.com";
@@ -37,11 +40,23 @@ export async function POST(request: NextRequest) {
     });
 
     if (!sent) {
-      return NextResponse.json({ message: "The message could not be delivered because SMTP is not configured." }, { status: 500 });
+      return NextResponse.json(
+        {
+          message:
+            "The message could not be delivered because SMTP is not configured.",
+        },
+        { status: 500 },
+      );
     }
 
-    return NextResponse.json({ success: true, message: "Thanks — your message was received." }, { status: 200 });
+    return NextResponse.json(
+      { success: true, message: "Thanks — your message was received." },
+      { status: 200 },
+    );
   } catch {
-    return NextResponse.json({ message: "Could not process your request." }, { status: 500 });
+    return NextResponse.json(
+      { message: "Could not process your request." },
+      { status: 500 },
+    );
   }
 }

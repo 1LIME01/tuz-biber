@@ -6,8 +6,19 @@
       { "label": "Ingredients", "href": "/ingredients" },
       { "label": "FAQ", "href": "/faq" }
     ],
-    "cta": "Get Tuz Biber",
     "language": "Türkçe"
+  },
+  "blog": {
+    "nav": "Blog",
+    "metaTitle": "Tuz Biber Journal",
+    "metaDescription": "Stories about Tuz Biber recipes, ingredients, and food culture.",
+    "eyebrow": "The kitchen journal",
+    "title": "Journal",
+    "intro": "Stories on flavor, ingredients, and the culture of the table.",
+    "empty": "New stories are coming soon.",
+    "readMore": "Read story",
+    "allPosts": "All stories",
+    "readTime": "{minutes} min read"
   },
   "hero": {
     "eyebrow": "Turkish Finishing Seasoning",
@@ -17,7 +28,13 @@
     "ctaSecondary": "See how to use it"
   },
   "trustStrip": {
-    "items": ["5 ingredients", "Handcrafted", "Small batch", "No additives", "Inspired by Thrace"]
+    "items": [
+      "5 ingredients",
+      "Handcrafted",
+      "Small batch",
+      "No additives",
+      "Inspired by Thrace"
+    ]
   },
   "category": {
     "eyebrow": "Sofra baharatı",
@@ -33,10 +50,22 @@
     "eyebrow": "Ateşten sonra serpin",
     "title": "Best enjoyed where the moment matters most.",
     "items": [
-      { "title": "Soft eggs", "description": "A quick shower over jammy eggs and olive oil toast turns breakfast into a ritual." },
-      { "title": "Burrata", "description": "The warmth of burrata, ripe tomato and a pinch of Tuz Biber is instantly memorable." },
-      { "title": "Grilled proteins", "description": "Finished right before serving, it adds a savory edge without smothering the main flavor." },
-      { "title": "Roasted vegetables", "description": "A final dusting wakes up carrots, potatoes, cauliflower and greens." }
+      {
+        "title": "Soft eggs",
+        "description": "A quick shower over jammy eggs and olive oil toast turns breakfast into a ritual."
+      },
+      {
+        "title": "Burrata",
+        "description": "The warmth of burrata, ripe tomato and a pinch of Tuz Biber is instantly memorable."
+      },
+      {
+        "title": "Grilled proteins",
+        "description": "Finished right before serving, it adds a savory edge without smothering the main flavor."
+      },
+      {
+        "title": "Roasted vegetables",
+        "description": "A final dusting wakes up carrots, potatoes, cauliflower and greens."
+      }
     ]
   },
   "productMacro": {
@@ -64,9 +93,18 @@
     "eyebrow": "Craft",
     "title": "Made by hand, in small batches.",
     "steps": [
-      { "title": "01. Toast", "description": "Sesame is toasted gently for nutty depth and a layered finish." },
-      { "title": "02. Cool", "description": "Each ingredient settles into balance before blending begins." },
-      { "title": "03. Crush", "description": "The final mix is hand-finished into a textured, savory seasoning." }
+      {
+        "title": "01. Toast",
+        "description": "Sesame is toasted gently for nutty depth and a layered finish."
+      },
+      {
+        "title": "02. Cool",
+        "description": "Each ingredient settles into balance before blending begins."
+      },
+      {
+        "title": "03. Crush",
+        "description": "The final mix is hand-finished into a textured, savory seasoning."
+      }
     ]
   },
   "founderStory": {
@@ -82,20 +120,48 @@
     "eyebrow": "Context",
     "title": "Rooted in the Turkish table. Unmistakably modern.",
     "items": [
-      { "name": "Za'atar", "origin": "Levant", "vibe": "herbal and sesame-laced" },
-      { "name": "Dukkah", "origin": "Egypt", "vibe": "toasted nut and spice blend" },
-      { "name": "Everything Bagel", "origin": "United States", "vibe": "savory crunch and familiar comfort" },
-      { "name": "Tuz Biber", "origin": "Thrace / Turkey", "vibe": "finish-first, plate-friendly, layered and warm" }
+      {
+        "name": "Za'atar",
+        "origin": "Levant",
+        "vibe": "herbal and sesame-laced"
+      },
+      {
+        "name": "Dukkah",
+        "origin": "Egypt",
+        "vibe": "toasted nut and spice blend"
+      },
+      {
+        "name": "Everything Bagel",
+        "origin": "United States",
+        "vibe": "savory crunch and familiar comfort"
+      },
+      {
+        "name": "Tuz Biber",
+        "origin": "Thrace / Turkey",
+        "vibe": "finish-first, plate-friendly, layered and warm"
+      }
     ]
   },
   "howToUse": {
     "eyebrow": "How to use",
     "title": "Cook first. Plate second. Sprinkle last.",
     "steps": [
-      { "title": "Cook", "description": "Heat and season your food exactly as you normally would." },
-      { "title": "Plate", "description": "Bring the dish to the table before the final finishing touch." },
-      { "title": "Sprinkle", "description": "Add Tuz Biber just before serving for aroma, crunch and color." },
-      { "title": "Eat", "description": "Taste the contrast between warm food and the final savory snap." }
+      {
+        "title": "Cook",
+        "description": "Heat and season your food exactly as you normally would."
+      },
+      {
+        "title": "Plate",
+        "description": "Bring the dish to the table before the final finishing touch."
+      },
+      {
+        "title": "Sprinkle",
+        "description": "Add Tuz Biber just before serving for aroma, crunch and color."
+      },
+      {
+        "title": "Eat",
+        "description": "Taste the contrast between warm food and the final savory snap."
+      }
     ]
   },
   "waitlist": {
@@ -112,13 +178,16 @@
     "title": "Ask a question or say hello.",
     "description": "For press, wholesale, or hospitality inquiries, send us a note.",
     "submit": "Send message",
+    "sending": "Sending...",
+    "emailNote": "We will reply to your email.",
     "success": "Thanks — your message has been sent.",
     "error": "Please check your details and try again.",
-    "otpHeading": "Verify your email",
-    "otpDescription": "We sent a 6-digit verification code to your email.",
-    "otpSubmit": "Verify code",
-    "otpResend": "Send a new code",
-    "fields": { "name": "Your name", "email": "Email address", "phone": "Phone number", "message": "Message", "otp": "Verification code" }
+    "fields": {
+      "name": "Your name",
+      "email": "Email address",
+      "phone": "Phone number",
+      "message": "Message"
+    }
   },
   "footer": {
     "brand": "Tuz Biber",
@@ -129,10 +198,22 @@
     "eyebrow": "FAQ",
     "title": "Questions people ask before the first jar.",
     "items": [
-      { "question": "Is this meant to be cooked in the pan?", "answer": "No. Tuz Biber is intended as a finishing seasoning, added after the food is cooked and plated." },
-      { "question": "Why are there only five ingredients?", "answer": "So the flavor reads cleanly and intentionally — warm, savory, textural, and never crowded." },
-      { "question": "Can I use it on eggs and bread?", "answer": "Yes. It works especially well with eggs, burrata, vegetables, grilled meats and warm olive oil bread." },
-      { "question": "When will the next release happen?", "answer": "We release in small batches. Joining the list is the best way to hear about the next run before it sells out." }
+      {
+        "question": "Is this meant to be cooked in the pan?",
+        "answer": "No. Tuz Biber is intended as a finishing seasoning, added after the food is cooked and plated."
+      },
+      {
+        "question": "Why are there only five ingredients?",
+        "answer": "So the flavor reads cleanly and intentionally — warm, savory, textural, and never crowded."
+      },
+      {
+        "question": "Can I use it on eggs and bread?",
+        "answer": "Yes. It works especially well with eggs, burrata, vegetables, grilled meats and warm olive oil bread."
+      },
+      {
+        "question": "When will the next release happen?",
+        "answer": "We release in small batches. Joining the list is the best way to hear about the next run before it sells out."
+      }
     ]
   },
   "storyPage": {

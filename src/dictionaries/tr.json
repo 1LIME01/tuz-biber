@@ -17,13 +17,7 @@
     "ctaSecondary": "Nasıl kullanılır?"
   },
   "trustStrip": {
-    "items": [
-      "5 malzeme",
-      "El yapımı",
-      "Küçük parti",
-      "Katkı maddesi yok",
-      "Trakya’dan ilham"
-    ]
+    "items": ["5 malzeme", "El yapımı", "Küçük parti", "Katkı maddesi yok", "Trakya’dan ilham"]
   },
   "category": {
     "eyebrow": "Sofra baharatı",
@@ -35,7 +29,7 @@
       "Yumurta, burrata, ızgara sebze, et ve sıcak ekmek için tasarlandı."
     ]
   },
-
+ 
   "productMacro": {
     "label": "Karışım",
     "title": "Beş malzeme. Tek tanınan son nota.",
@@ -50,10 +44,7 @@
     "eyebrow": "Malzemeler",
     "title": "Basit malzemeler. Dikkatli oranlar.",
     "items": [
-      {
-        "name": "Kavrulmuş susam",
-        "note": "Kuru, tatlı ve dokulu bir sıcaklık."
-      },
+      { "name": "Kavrulmuş susam", "note": "Kuru, tatlı ve dokulu bir sıcaklık." },
       { "name": "Deniz tuzu", "note": "Temiz tuzluluk ve derinlik." },
       { "name": "Kırmızı biber", "note": "Yavaş ısı ve renk." },
       { "name": "Kimyon", "note": "Toprak, aromatik canlılık." },
@@ -64,18 +55,9 @@
     "eyebrow": "Üretim",
     "title": "El yapımı, küçük partiler halinde.",
     "steps": [
-      {
-        "title": "01. Kavur",
-        "description": "Susam yumuşak şekilde kavrularak tatlı, tokluklu bir derinlik elde edilir."
-      },
-      {
-        "title": "02. Soğut",
-        "description": "Her malzeme dengede bir araya gelmeden önce dinlenir."
-      },
-      {
-        "title": "03. Döv",
-        "description": "Son karışım el işçiliğiyle özgün ve tekstürlü bir baharata dönüşür."
-      }
+      { "title": "01. Kavur", "description": "Susam yumuşak şekilde kavrularak tatlı, tokluklu bir derinlik elde edilir." },
+      { "title": "02. Soğut", "description": "Her malzeme dengede bir araya gelmeden önce dinlenir." },
+      { "title": "03. Döv", "description": "Son karışım el işçiliğiyle özgün ve tekstürlü bir baharata dönüşür." }
     ]
   },
   "founderStory": {
@@ -92,21 +74,9 @@
     "title": "Türk sofrasının kökleri. Modern bir ifade.",
     "items": [
       { "name": "Za'atar", "origin": "Levant", "vibe": "otlu ve susamlı" },
-      {
-        "name": "Dukkah",
-        "origin": "Mısır",
-        "vibe": "kavrulmuş fındık ve baharat"
-      },
-      {
-        "name": "Everything Bagel",
-        "origin": "ABD",
-        "vibe": "baharatlı ve tanıdık"
-      },
-      {
-        "name": "Tuz Biber",
-        "origin": "Trakya / Türkiye",
-        "vibe": "bitiş odaklı, sıcak ve katmanlı"
-      }
+      { "name": "Dukkah", "origin": "Mısır", "vibe": "kavrulmuş fındık ve baharat" },
+      { "name": "Everything Bagel", "origin": "ABD", "vibe": "baharatlı ve tanıdık" },
+      { "name": "Tuz Biber", "origin": "Trakya / Türkiye", "vibe": "bitiş odaklı, sıcak ve katmanlı" }
     ]
   },
   "howToUse": {
@@ -114,18 +84,9 @@
     "title": "Önce pişir. Sonra tabağa al. En sonunda serpin.",
     "steps": [
       { "title": "Pişir", "description": "Yemeğinizi normal şekilde pişirin." },
-      {
-        "title": "Tabağa al",
-        "description": "Yemeği servis etmeye hazır bir şekilde masaya getirin."
-      },
-      {
-        "title": "Serp",
-        "description": "Tuz Biber’i sunumdan hemen önce ekleyin."
-      },
-      {
-        "title": "Ye",
-        "description": "Sıcak lezzet ile son baharatın farkını hissedin."
-      }
+      { "title": "Tabağa al", "description": "Yemeği servis etmeye hazır bir şekilde masaya getirin." },
+      { "title": "Serp", "description": "Tuz Biber’i sunumdan hemen önce ekleyin." },
+      { "title": "Ye", "description": "Sıcak lezzet ile son baharatın farkını hissedin." }
     ]
   },
   "waitlist": {
@@ -148,13 +109,7 @@
     "otpDescription": "E-postanıza 6 haneli bir doğrulama kodu gönderdik.",
     "otpSubmit": "Kodu doğrula",
     "otpResend": "Yeni kod gönder",
-    "fields": {
-      "name": "Adınız",
-      "email": "E-posta adresi",
-      "phone": "Telefon numarası",
-      "message": "Mesaj",
-      "otp": "Doğrulama kodu"
-    }
+    "fields": { "name": "Adınız", "email": "E-posta adresi", "phone": "Telefon numarası", "message": "Mesaj", "otp": "Doğrulama kodu" }
   },
   "footer": {
     "brand": "Tuz Biber",
@@ -165,22 +120,10 @@
     "eyebrow": "SSS",
     "title": "İlk kavanoz öncesi sık sorulan sorular.",
     "items": [
-      {
-        "question": "Bunu tavada pişirirken kullanmalı mıyım?",
-        "answer": "Hayır. Tuz Biber, pişirilmiş ve tabağa alınmış yemeğin üzerine serpilmesi için tasarlandı."
-      },
-      {
-        "question": "Neden sadece beş malzeme var?",
-        "answer": "Çünkü lezzet temiz, bilinçli ve anlaşılır olmalı; sıcaklık, tuzluluk ve doku belirgin şekilde hissedilmeli."
-      },
-      {
-        "question": "Yumurtada ve ekmekte kullanılır mı?",
-        "answer": "Evet. Özellikle yumurta, burrata, sebzeler, ızgara et ve sıcak ekmekte çok iyi çalışır."
-      },
-      {
-        "question": "Sonraki parti ne zaman çıkacak?",
-        "answer": "Küçük partiler halinde üretilir. Listeye katılmak sonraki sevkiyatla ilgili ilk haberi almanın en iyi yoludur."
-      }
+      { "question": "Bunu tavada pişirirken kullanmalı mıyım?", "answer": "Hayır. Tuz Biber, pişirilmiş ve tabağa alınmış yemeğin üzerine serpilmesi için tasarlandı." },
+      { "question": "Neden sadece beş malzeme var?", "answer": "Çünkü lezzet temiz, bilinçli ve anlaşılır olmalı; sıcaklık, tuzluluk ve doku belirgin şekilde hissedilmeli." },
+      { "question": "Yumurtada ve ekmekte kullanılır mı?", "answer": "Evet. Özellikle yumurta, burrata, sebzeler, ızgara et ve sıcak ekmekte çok iyi çalışır." },
+      { "question": "Sonraki parti ne zaman çıkacak?", "answer": "Küçük partiler halinde üretilir. Listeye katılmak sonraki sevkiyatla ilgili ilk haberi almanın en iyi yoludur." }
     ]
   },
   "storyPage": {
@@ -197,7 +140,7 @@
     "title": "Liste kısa, lezzet dürüst.",
     "intro": "Beş malzeme, sıcaklık, doku ve temiz tuzluluğu bir araya getirir.",
     "body": [
-      "Kavrulmuş susa yumuşaklık ve çıtırlık getirir.",
+      "Kavrulmuş susam yumuşaklık ve çıtırlık getirir.",
       "Deniz tuzu lezzeti açar, kimyon ve kekik aromayı derinleştirir.",
       "Kırmızı biber renk ve hafif ısı katar; yemeği ezmez, tamamlar."
     ]
